@@ -1,0 +1,3 @@
+kyklos_game:
+    resource: "@KyklosGameBundle/Resources/config/routing.yml"
+    prefix:   /
