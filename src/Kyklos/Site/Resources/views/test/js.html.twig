@@ -1,0 +1,45 @@
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col-lg-12'>
+            {% if name is defined %}
+                {{ name }}
+            {% endif %}
+            <h2>Hello dans l'accueil!</h2>
+        </div>
+        <div class='col-lg-6'>
+            <div>Je vais faire des putain de test javascript !</div>  
+        </div>
+        <div class='col-lg-6'>
+            <button id='btn'>Mon bouton</button>
+            <button id='btn-js'>Test Route JS</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#btn').click(function() {
+           setTimeout(function() {
+            alert("2 secondes");
+           }, 2000);
+        });
+
+        $('#btn-js').click(function() {
+            setTimeout(function() {
+                addServer();
+            }, 10000);
+        });
+        
+        function addServer() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('test_route_js', {name:'poil'}),
+                async: true,
+                success: function(res) {
+                    $('#content').html(res);
+                    alert('ajouter');
+                }
+            });
+        }
+    });
+</script>
