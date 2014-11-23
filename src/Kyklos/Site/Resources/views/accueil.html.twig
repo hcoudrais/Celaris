@@ -1,5 +1,7 @@
-<html>
-  <body>
-    Hello dans l'accueil!
-  </body>
-</html>
+{% extends '::base.html.twig' %}
+
+{% block content %}{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

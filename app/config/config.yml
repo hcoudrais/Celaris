@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ KyklosSiteBundle, KyklosGameBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -141,3 +141,7 @@ fos_user:
 #            type:               fos_user_group
 #            name:               fos_user_group_form
 #            validation_groups:  [Registration, Default]
+
+fos_js_routing:
+    routes_to_expose:
+        - test_route_js

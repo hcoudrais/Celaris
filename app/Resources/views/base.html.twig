@@ -3,11 +3,32 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}
+            {% javascripts 
+                '@KyklosSiteBundle/Resources/public/jquery/*'
+                '@KyklosSiteBundle/Resources/public/js/*'
+                '@KyklosSiteBundle/Resources/public/bootstrap/js/*'
+                'bundles/fosjsrouting/js/router.js'
+                'js/fos_js_routes.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+                <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+                <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+            {% endjavascripts %}
+
+        {% endblock %}
+        {% block stylesheets %}
+            {% stylesheets 
+                '@KyklosSiteBundle/Resources/public/css/*' 
+                '@KyklosSiteBundle/Resources/public/bootstrap/css/*' 
+                filter='cssrewrite' 
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block content %}{% endblock %}
     </body>
 </html>

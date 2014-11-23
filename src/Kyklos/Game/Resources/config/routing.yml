@@ -1,3 +1,9 @@
-home_page:
-    pattern: /
-    defaults: { _controller: KyklosSiteBundle:Home:index }
+#home_page:
+#    pattern: /
+#    defaults: { _controller: KyklosSiteBundle:Home:index }
+
+#test_route_js:
+#    pattern: /{name}
+#    defaults: { _controller: KyklosSiteBundle:Home:testJsRoute }
+#    options:
+#        expose: true
