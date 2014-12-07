@@ -3,8 +3,8 @@ imports:
     - { resource: security.yml }
 
 framework:
-    #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    esi:             ~
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -56,12 +56,12 @@ doctrine:
                 password: "%database_password%"
                 charset:  UTF8
             auth:
-                driver:   "%database_driver_auth%"
-                host:     "%database_host_auth%"
-                port:     "%database_port_auth%"
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
                 dbname:   "%database_name_auth%"
-                user:     "%database_user_auth%"
-                password: "%database_password_auth%"
+                user:     "%database_user%"
+                password: "%database_password%"
                 charset:  UTF8
 
     orm:

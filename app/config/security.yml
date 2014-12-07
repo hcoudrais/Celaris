@@ -1,25 +1,29 @@
 security:
     providers:
+        main:
+            id: fos_user.user_provider.username
         in_memory:
             memory: ~
-        fos_userbundle:
-            id: fos_user.user_provider.username
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
 
     firewalls:
-
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         main:
-            pattern: ^/
+            pattern:        ^/
+            anonymous:      true
+            provider:       main
             form_login:
-                provider: fos_userbundle
-                csrf_provider: form.csrf_provider
-            logout: true
-            anonymous: true
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+            logout:
+                path:       fos_user_security_logout
+                target:     /platform
+            remember_me:
+                key:        %secret% # %secret% est un paramètre de parameters.yml
 
         default:
             anonymous: ~
