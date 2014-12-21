@@ -13,9 +13,9 @@ use FOS\UserBundle\Model\User as BaseUser;
 class User extends BaseUser
 {
     /**
-     * @ORM\Column(name="UserId", type="integer", unique=true, nullable=false)
+     * @ORM\Column(name="id", type="integer", unique=true, nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
     */
-    protected $userId;
+    protected $id;
 }

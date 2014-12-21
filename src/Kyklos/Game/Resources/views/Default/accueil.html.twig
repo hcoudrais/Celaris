@@ -1,5 +1,49 @@
-<html>
-  <body>
-    Hello !
-  </body>
-</html>
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <br/>
+    <div class='container-fluid'>
+        <div class='row-fluid'>
+            Hello !
+
+            <div class='pull-right'>
+                <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
+                    <button class='btn-warning' type="submit">Déconnection</button>
+                </form>
+            </div>
+        </div>
+        <div class='row-fluid'>
+            Affiche la Map !
+
+            <button id="menu-galaxy" class='btn-default'>Galaxy</button>
+        </div>
+            
+        <div id="map">
+{#        {% block test %}
+        {% endblock test %}#}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $(document).ready(function() {
+        function loadMap() {
+            console.log('kikou');
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_galaxy'),
+                async: true,
+                success: function(res) {
+                    $('#map').html(res);
+                }
+            });
+        };
+        
+        $('#menu-galaxy').click(function() {
+            loadMap();
+        });
+    });
+    </script>
+{% endblock %}
