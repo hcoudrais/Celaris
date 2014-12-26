@@ -12,13 +12,13 @@ class LoginController extends Controller
 {
     /**
      * @Route ("/", name="home_page")
-     * @Template("KyklosSiteBundle::accueil.html.twig")
+     * @Template("KyklosSiteBundle::layout.html.twig")
      */
     public function loginAction(Request $request)
     {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
 
         $session = $request->getSession();

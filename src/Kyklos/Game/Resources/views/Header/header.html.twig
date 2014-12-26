@@ -15,12 +15,10 @@
         <div class='row-fluid'>
             Affiche la Map !
 
-            <button id="menu-galaxy" class='btn-default'>Galaxy</button>
+            <button id="menu-galaxy" class='btn-default'>{{ 'label.galaxy'|trans|desc('Galaxy') }}</button>
         </div>
-            
+
         <div id="map">
-{#        {% block test %}
-        {% endblock test %}#}
         </div>
     </div>
 {% endblock content %}
@@ -30,7 +28,6 @@
     <script>
     $(document).ready(function() {
         function loadMap() {
-            console.log('kikou');
             $.ajax({
                 type: "GET",
                 url: Routing.generate('menu_galaxy'),

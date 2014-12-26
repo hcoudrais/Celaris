@@ -8,11 +8,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
 
-class DefaultController extends Controller
+class GameController extends Controller
 {
     /**
-     * @Route ("/accueil", name="accueil")
-     * @Template("KyklosGameBundle:Default:accueil.html.twig")
+     * @Route ("/game", name="game")
+     * @Template("KyklosGameBundle:Header:header.html.twig")
      */
     public function indexAction()
     {
@@ -26,7 +26,7 @@ class DefaultController extends Controller
     public function mapAction(Request $request)
     {
         if(!$request->isXmlHttpRequest())
-            return false;
+            return $this->redirect($this->generateUrl('home_page'));
 
         $allCelaris = $this
             ->getDoctrine()
