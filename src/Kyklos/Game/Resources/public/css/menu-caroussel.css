@@ -1,0 +1,117 @@
+body {
+    background:#111 !important;
+    color: green !important;
+    font-family:Arial, verdana;
+    font-size:14px;
+}
+
+.wrapper {
+    /*background-image: url('../../../../img/galaxy-background.jpg');*/
+    margin:20px auto;
+    width:70%;
+    height:700px;
+    text-align:center;
+}
+
+.caroussel-content {
+    position:absolute;
+    background:#fff;
+    top:0px;
+    left:0px !important;
+    height:700px;
+    width:400%;
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition:all 1s ease;
+    clear:both;
+}
+
+.caroussel-item {
+    float:left;
+    width:25%;
+    height:700px;
+    position:relative;
+    overflow:scroll;
+}
+
+#vue-general, #galaxy, #article3, #article4 {
+    overflow:hidden;
+    background:transparent;
+    height:700px;
+    margin:0 auto;
+    position:relative;
+}
+
+#vue-general:target .caroussel-content {
+    left:-10px;
+}
+
+.sliderContainer {
+    position:relative;
+    /*-moz-border-radius: 10px;*/
+    /*-webkit-border-radius: 10px;*/
+    /*border-radius: 10px;*/
+    /*border:10px solid #fff;*/
+    height:700px;
+    overflow:hidden;
+}
+
+#galaxy:target .caroussel-content, #article3:target .caroussel-content, #article4:target .caroussel-content {
+    -webkit-transform: translate(-25%, 0px);
+    -moz-transform: translate(-25%, 0px);
+    -o-transform: translate(-25%, 0px);
+    -ms-transform: translate(-25%, 0px);
+    transform: translate(-25%, 0px);
+}
+
+#article3:target .caroussel-content {
+    -webkit-transform: translate(-50%, 0px);
+    -moz-transform: translate(-50%, 0px);
+    -o-transform: translate(-50%, 0px);
+    -ms-transform: translate(-50%, 0px);
+    transform: translate(-50%, 0px);
+}
+
+#article4:target .caroussel-content {
+    -webkit-transform: translate(-75%, 0px);
+    -moz-transform: translate(-75%, 0px);
+    -o-transform: translate(-75%, 0px);
+    -ms-transform: translate(-75%, 0px);
+    transform: translate(-75%, 0px);
+}
+
+.wrapper > a {
+    padding: 1px 7px 3px 7px !important;
+    position: relative;
+    bottom: 6px;
+    margin: 10px;
+    color:#fff;
+    text-decoration: none;
+    padding: 8px 8px 0 8px;
+    padding-top:0px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 390px;
+    border-radius: 390px;    
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+::-webkit-scrollbar {
+    width: 12px;  
+}
+
+::-webkit-scrollbar-track {
+    background-color: black;  
+    border-left: 1px solid black;  
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: green;  
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: red;  
+}

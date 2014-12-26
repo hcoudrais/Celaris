@@ -1,0 +1,71 @@
+<style>
+body {
+    background-image: url('/Celaris/src/Kyklos/Game/Resources/public/img/galaxy-background.jpg') !important;
+
+}
+    
+.caroussel-content {
+{#    background-image: url('/Celaris/src/Kyklos/Game/Resources/public/img/galaxy-background.jpg');#}
+    background-color: transparent;
+    opacity: 0.5;
+}
+</style>
+
+<div class="row-fluid">
+    <div id="menu-header">
+        <div class="wrapper">
+            {# Button to access the menu #}
+            <a class='btn-default btn-primary' href="#vue-general">{{ 'label.general'|trans|desc('Vue général') }}</a>
+            <a id="btn-galaxy" class='btn-default btn-primary' href="#galaxy">{{ 'label.galaxy'|trans|desc('Galaxy') }}</a>
+            <a href="#article3">3</a>
+            <a href="#article4">4</a>
+
+            {# My Caroussel #}
+            <div id="vue-general">
+                <div id="galaxy">
+                    <div id="article3">
+                        <div id="article4">
+                            <div class="sliderContainer">
+
+                                {# Content of all pages of the carousel #}
+                                <div class="caroussel-content">
+                                    <div class="caroussel-item">
+                                        {% include 'KyklosGameBundle:Header:ninou.html.twig' %}
+                                    </div>
+                                    <div id="map" class="caroussel-item">
+                                    </div>
+                                    <div class="caroussel-item">
+                                    </div>
+                                    <div class="caroussel-item">
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        function loadMap() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_galaxy'),
+                async: true,
+                success: function(res) {
+                    $('#map').html(res);
+                }
+            });
+        };
+
+        $('#btn-galaxy').click(function() {
+            loadMap();
+        });
+    });
+</script>
+                    

@@ -12,35 +12,7 @@
                 </form>
             </div>
         </div>
-        <div class='row-fluid'>
-            Affiche la Map !
 
-            <button id="menu-galaxy" class='btn-default'>{{ 'label.galaxy'|trans|desc('Galaxy') }}</button>
-        </div>
-
-        <div id="map">
-        </div>
+        {% include 'KyklosGameBundle:Header:menu-header.html.twig' %}
     </div>
 {% endblock content %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-    $(document).ready(function() {
-        function loadMap() {
-            $.ajax({
-                type: "GET",
-                url: Routing.generate('menu_galaxy'),
-                async: true,
-                success: function(res) {
-                    $('#map').html(res);
-                }
-            });
-        };
-        
-        $('#menu-galaxy').click(function() {
-            loadMap();
-        });
-    });
-    </script>
-{% endblock %}
