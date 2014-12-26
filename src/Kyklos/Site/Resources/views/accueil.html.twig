@@ -1,0 +1,88 @@
+{% extends 'KyklosSiteBundle::layout.html.twig' %}
+
+{% block content %}
+    {# Je le viererai plus tard, lorsque je m'attaquerai concrètement au design #}
+    <style>
+        #register-form * {
+            float: right;
+        }
+
+        #register-form-content * {
+            float: right;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-xs-3">
+                <form role="form" action="{{ path('fos_user_security_check') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">{{ 'label.form.login'|trans|desc('Login: ') }}</label>
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{ 'label.form.password'|trans|desc('Password: ') }}</label>
+                        <input type="password" class="form-control" id="password" name="_password" />
+                    </div>
+
+                    <input type="submit" value="Connexion" />
+                </form>
+            </div>
+            <div class="col-xs-6"></div>
+            <div class="col-xs-3">
+                <div class="row-fluid">
+                    <div id="register-form">                    
+                        <div class="form-group">
+                            <label>{{ 'label.register.text'|trans|desc('Pas encore inscrit ?') }}</label><br/>
+                            <input id="register" type="submit" value="{{ 'label.register'|trans|desc('Register') }}" />
+                        </div>
+                    </div>
+                    <div id="register-form-content" class="pull-right">                    
+                        <form action="{{ path('fos_user_registration_register') }}" method="POST" class="fos_user_registration_register">
+                            <div id="fos_user_registration_form">
+                                <div>
+                                    <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required">
+                                    <label for="fos_user_registration_form_email" class="required">Adresse e-mail :</label>
+                                </div>
+                                <div>
+                                    <input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" pattern=".{2,}">
+                                    <label for="fos_user_registration_form_username" class="required">Nom d'utilisateur :</label>
+                                </div>
+                                <div>
+                                    <input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required">
+                                    <label for="fos_user_registration_form_plainPassword_first" class="required">Mot de passe :</label>
+                                </div>
+                                <div>                
+                                    <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required">
+                                    <label for="fos_user_registration_form_plainPassword_second" class="required">Vérification :</label>    
+                                </div>
+
+                            </div>
+                                <div>
+                                    <input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="{{ csrf_token('fos_user_registration_form_token') }}">
+                                </div>
+                            <div>
+                                <input type="submit" value="Enregistrer">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $(document).ready(function() {
+        $('#register-form-content').hide();
+        
+        $('#register').click(function() {
+            $('#register-form').hide();
+            $('#register-form-content').show();
+        });
+    });
+    </script>
+{% endblock %}
