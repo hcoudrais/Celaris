@@ -16,6 +16,17 @@ class GameController extends Controller
      */
     public function indexAction()
     {
+//        $player = $this
+//            ->getDoctrine()
+//            ->getRepository('KyklosGameBundle:Celaris')
+//            ->findAll()
+//        ;
+//
+//        $serializer = $this->get('jms_serializer');
+//        $player = $serializer->serialize($player,'json');
+//
+//        var_dump($player);
+        
         return array();
     }
 

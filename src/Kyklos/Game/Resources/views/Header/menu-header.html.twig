@@ -1,13 +1,11 @@
 <style>
 body {
-    background-image: url('/Celaris/src/Kyklos/Game/Resources/public/img/galaxy-background.jpg') !important;
-
+{#    background-image: url('/Celaris/src/Kyklos/Game/Resources/public/img/galaxy-background.jpg') !important;#}
 }
-    
+
 .caroussel-content {
-{#    background-image: url('/Celaris/src/Kyklos/Game/Resources/public/img/galaxy-background.jpg');#}
     background-color: transparent;
-    opacity: 0.5;
+    opacity: 1;
 }
 </style>
 
@@ -17,26 +15,29 @@ body {
             {# Button to access the menu #}
             <a class='btn-default btn-primary' href="#vue-general">{{ 'label.general'|trans|desc('Vue général') }}</a>
             <a id="btn-galaxy" class='btn-default btn-primary' href="#galaxy">{{ 'label.galaxy'|trans|desc('Galaxy') }}</a>
-            <a href="#article3">3</a>
-            <a href="#article4">4</a>
+            <a id="btn-building" class='btn-default btn-primary' href="#building">{{ 'label.building'|trans|desc('Building') }}</a>
+            <a id="btn-research" class='btn-default btn-primary' href="#research">{{ 'label.research'|trans|desc('Research') }}</a>
 
             {# My Caroussel #}
             <div id="vue-general">
                 <div id="galaxy">
-                    <div id="article3">
-                        <div id="article4">
+                    <div id="building">
+                        <div id="research">
                             <div class="sliderContainer">
 
-                                {# Content of all pages of the carousel #}
+                                {# Content of all pages of the caroussel #}
                                 <div class="caroussel-content">
                                     <div class="caroussel-item">
                                         {% include 'KyklosGameBundle:Header:ninou.html.twig' %}
                                     </div>
+
                                     <div id="map" class="caroussel-item">
                                     </div>
-                                    <div class="caroussel-item">
+
+                                    <div id="building-content" class="caroussel-item">
                                     </div>
-                                    <div class="caroussel-item">
+
+                                    <div id="research-content" class="caroussel-item">
                                     </div>
                                 </div>
     
@@ -52,6 +53,20 @@ body {
 
 <script>
     $(document).ready(function() {
+        var elementActive = document.URL.split('#')[1];
+        var links = $('.wrapper').find('a');
+
+        function initCaroussel() {
+            $.each(links, function() {
+                $(this).click(function() {
+                    $(this).removeClass('active');
+                });
+            });
+
+            $('.wrapper').find('a[href="#' + elementActive + '"]').addClass('active');
+        };
+        initCaroussel();
+
         function loadMap() {
             $.ajax({
                 type: "GET",
@@ -63,8 +78,47 @@ body {
             });
         };
 
+        function loadBuilding() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_building'),
+                async: true,
+                success: function(res) {
+                    $('#building-content').html(res);
+                }
+            });
+        };
+
+        function loadResearch() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_research'),
+                async: true,
+                success: function(res) {
+                    $('#research-content').html(res);
+                }
+            });
+        };
+
+        if ($('#btn-galaxy').hasClass('active'))
+            loadMap();
+
+        if ($('#btn-building').hasClass('active'))
+            loadBuilding();
+
+        if ($('#btn-research').hasClass('active'))
+            loadResearch();
+
         $('#btn-galaxy').click(function() {
             loadMap();
+        });
+
+        $('#btn-building').click(function() {
+            loadBuilding();
+        });
+
+        $('#btn-research').click(function() {
+            loadResearch();
         });
     });
 </script>

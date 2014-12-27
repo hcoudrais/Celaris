@@ -145,3 +145,5 @@ fos_user:
 fos_js_routing:
     routes_to_expose:
         - menu_galaxy
+        - menu_building
+        - menu_research

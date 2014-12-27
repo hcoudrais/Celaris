@@ -6,7 +6,6 @@ body {
 }
 
 .wrapper {
-    /*background-image: url('../../../../img/galaxy-background.jpg');*/
     margin:20px auto;
     width:70%;
     height:700px;
@@ -35,7 +34,7 @@ body {
     overflow:scroll;
 }
 
-#vue-general, #galaxy, #article3, #article4 {
+#vue-general, #galaxy, #building, #research {
     overflow:hidden;
     background:transparent;
     height:700px;
@@ -49,15 +48,11 @@ body {
 
 .sliderContainer {
     position:relative;
-    /*-moz-border-radius: 10px;*/
-    /*-webkit-border-radius: 10px;*/
-    /*border-radius: 10px;*/
-    /*border:10px solid #fff;*/
     height:700px;
     overflow:hidden;
 }
 
-#galaxy:target .caroussel-content, #article3:target .caroussel-content, #article4:target .caroussel-content {
+#galaxy:target .caroussel-content, #building:target .caroussel-content, #research:target .caroussel-content {
     -webkit-transform: translate(-25%, 0px);
     -moz-transform: translate(-25%, 0px);
     -o-transform: translate(-25%, 0px);
@@ -65,7 +60,7 @@ body {
     transform: translate(-25%, 0px);
 }
 
-#article3:target .caroussel-content {
+#building:target .caroussel-content {
     -webkit-transform: translate(-50%, 0px);
     -moz-transform: translate(-50%, 0px);
     -o-transform: translate(-50%, 0px);
@@ -73,7 +68,7 @@ body {
     transform: translate(-50%, 0px);
 }
 
-#article4:target .caroussel-content {
+#research:target .caroussel-content {
     -webkit-transform: translate(-75%, 0px);
     -moz-transform: translate(-75%, 0px);
     -o-transform: translate(-75%, 0px);
