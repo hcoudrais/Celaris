@@ -16,11 +16,11 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Kyklos\Game\KyklosGameBundle(),
+            new Celaris\Game\CelarisGameBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
-            new Kyklos\Site\KyklosSiteBundle(),
+            new Celaris\Site\CelarisSiteBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
         );
 

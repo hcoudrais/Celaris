@@ -1,0 +1,42 @@
+<?php
+
+namespace Celaris\Game\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
+use \Symfony\Component\HttpFoundation\Request as Request;
+
+class GameController extends Controller
+{
+    /**
+     * @Route ("/game", name="game")
+     * @Template("CelarisGameBundle:Header:header.html.twig")
+     */
+    public function indexAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route ("/galaxy", name="menu_galaxy", options={"expose"=true})
+     * @Template("CelarisGameBundle:Map:map.html.twig")
+     */
+    public function mapAction(Request $request)
+    {
+        if(!$request->isXmlHttpRequest())
+            return $this->redirect($this->generateUrl('home_page'));
+
+        $allCelaris = $this
+            ->getDoctrine()
+            ->getRepository('CelarisGameBundle:Celaris')
+            ->findAll()
+        ;
+        
+        $serializer = $this->get('jms_serializer');
+        $celaris = $serializer->serialize($allCelaris,'json');
+
+        return array('allCelaris' => $celaris);
+    }
+}

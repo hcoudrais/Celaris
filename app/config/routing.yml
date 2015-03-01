@@ -1,19 +1,19 @@
-kyklos_site:
-    resource: "@KyklosSiteBundle/Controller"
+celaris_site:
+    resource: "@CelarisSiteBundle/Controller"
     type: annotation
     prefix:   /
 
-kyklos_game:
-    resource: "@KyklosGameBundle/Controller"
+celaris_game:
+    resource: "@CelarisGameBundle/Controller"
     type: annotation
     prefix:   /
 
-#kyklos_site:
-#    resource: "@KyklosGameBundle/Resources/config/routing.yml"
+#celaris_site:
+#    resource: "@CelarisGameBundle/Resources/config/routing.yml"
 #    prefix:   /
 #
-#kyklos_game:
-#    resource: "@KyklosGameBundle/Resources/config/routing.yml"
+#celaris_game:
+#    resource: "@CelarisGameBundle/Resources/config/routing.yml"
 #    prefix:   /
 
 fos_user_security:

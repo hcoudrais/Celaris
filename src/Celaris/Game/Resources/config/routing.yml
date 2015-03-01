@@ -1,0 +1,7 @@
+#game:
+#    pattern: /game
+#    defaults: { _controller: CelarisGameBundle:Game:index }
+#
+#menu_galaxy:
+#    pattern: /galaxy
+#    defaults: { _controller: CelarisGameBundle:Game:map }

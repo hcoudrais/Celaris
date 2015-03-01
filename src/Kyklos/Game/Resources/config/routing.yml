@@ -1,7 +1,0 @@
-#game:
-#    pattern: /game
-#    defaults: { _controller: KyklosGameBundle:Game:index }
-#
-#menu_galaxy:
-#    pattern: /galaxy
-#    defaults: { _controller: KyklosGameBundle:Game:map }

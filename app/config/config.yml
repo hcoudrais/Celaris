@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ KyklosSiteBundle, KyklosGameBundle ]
+    bundles:        [ CelarisSiteBundle, CelarisGameBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -72,11 +72,11 @@ doctrine:
             auth:
                 connection: auth
                 mappings:
-                    KyklosSiteBundle: ~
+                    CelarisSiteBundle: ~
             default:
                 connection: default
                 mappings:
-                    KyklosGameBundle: ~
+                    CelarisGameBundle: ~
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -89,7 +89,7 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Kyklos\Site\Entity\User
+    user_class: Celaris\Site\Entity\User
     use_listener:           true
     use_username_form_type: true
     model_manager_name: auth

@@ -5,9 +5,9 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block javascripts %}
             {% javascripts 
-                '@KyklosSiteBundle/Resources/public/jquery/*'
-                '@KyklosSiteBundle/Resources/public/js/*'
-                '@KyklosSiteBundle/Resources/public/bootstrap/js/*'
+                '@CelarisSiteBundle/Resources/public/jquery/*'
+                '@CelarisSiteBundle/Resources/public/js/*'
+                '@CelarisSiteBundle/Resources/public/bootstrap/js/*'
                 'bundles/fosjsrouting/js/router.js'
                 'js/fos_js_routes.js'
             %}
@@ -19,9 +19,9 @@
         {% endblock %}
         {% block stylesheets %}
             {% stylesheets 
-                '@KyklosSiteBundle/Resources/public/bootstrap/css/*'
-                '@KyklosSiteBundle/Resources/public/css/*' 
-                '@KyklosGameBundle/Resources/public/css/*'
+                '@CelarisSiteBundle/Resources/public/bootstrap/css/*'
+                '@CelarisSiteBundle/Resources/public/css/*' 
+                '@CelarisGameBundle/Resources/public/css/*'
                 filter='cssrewrite' 
             %}
                 <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
