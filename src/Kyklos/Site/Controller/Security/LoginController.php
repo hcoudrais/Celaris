@@ -12,11 +12,11 @@ class LoginController extends Controller
 {
     /**
      * @Route ("/", name="home_page")
-     * @Template("KyklosSiteBundle::layout.html.twig")
+     * @Template("KyklosSiteBundle::accueil.html.twig")
      */
     public function loginAction(Request $request)
     {
-        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        // Si le visiteur est déjà identifié, on le déco haha
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('fos_user_security_logout'));
         }
@@ -34,7 +34,7 @@ class LoginController extends Controller
         return array(
             // Valeur du précédent nom d'utilisateur entré par l'internaute
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'error'         => $error
         );
     }
 }

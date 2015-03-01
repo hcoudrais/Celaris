@@ -1,10 +1,3 @@
-body {
-    background:#111 !important;
-    color: green !important;
-    font-family:Arial, verdana;
-    font-size:14px;
-}
-
 .wrapper {
     margin:20px auto;
     width:70%;
@@ -24,6 +17,8 @@ body {
     -o-transition:all 1s ease;
     transition:all 1s ease;
     clear:both;
+    background-color: transparent;
+    opacity: 1;
 }
 
 .caroussel-item {
