@@ -2,13 +2,14 @@
 
 namespace Celaris\Game\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Celaris\Game\Controller\GeneralController;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
 
-class ResearchController extends Controller
+class ResearchController extends GeneralController
 {
     /**
      * @Route ("/research", name="menu_research", options={"expose"=true})
@@ -24,10 +25,7 @@ class ResearchController extends Controller
             ->getRepository('CelarisGameBundle:Research')
             ->findAll()
         ;
-        
-        $serializer = $this->get('jms_serializer');
-        $research = $serializer->serialize($allResearch,'json');
 
-        return array('allResearch' => $research);
+        return array('allResearch' => $this->serializer($allResearch, 'array'));
     }
 }

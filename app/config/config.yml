@@ -147,3 +147,4 @@ fos_js_routing:
         - menu_galaxy
         - menu_building
         - menu_research
+        - game

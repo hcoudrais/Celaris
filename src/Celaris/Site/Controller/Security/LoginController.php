@@ -2,13 +2,14 @@
 
 namespace Celaris\Site\Controller\Security;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Celaris\Game\Controller\GeneralController;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class LoginController extends Controller
+class LoginController extends GeneralController
 {
     /**
      * @Route ("/", name="home_page")
@@ -16,11 +17,6 @@ class LoginController extends Controller
      */
     public function loginAction(Request $request)
     {
-        // Si le visiteur est déjà identifié, on le déco haha
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('fos_user_security_logout'));
-        }
-
         $session = $request->getSession();
 
         // On vérifie s'il y a des erreurs d'une précédente soumission du formulaire
@@ -31,10 +27,23 @@ class LoginController extends Controller
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
+        $servers = null;
+        // Si le visiteur est déjà identifié, on récupère les serveurs disponibles
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $servers = $this
+                ->getDoctrine()
+                ->getRepository('CelarisGameBundle:Server')
+                ->findAll()
+            ;
+
+            $servers = $this->serializer($servers, 'json');
+        }
+
         return array(
             // Valeur du précédent nom d'utilisateur entré par l'internaute
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error
+            'error'         => $error,
+            'servers'       => json_decode($servers, true)
         );
     }
 }

@@ -4,6 +4,26 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="col-xs-3">
+            {% if error is not null and error.message == 'Bad credentials' %}
+            <div>
+                <span id='error-login' class='text-danger'>{{ 'label.bad.credentials'|trans|desc('Bad credentials') }}</span>
+            </div>
+            {% endif %}
+
+            {% if app.user %}
+            <div class="form-group">
+                <form role="form" action="game" method="post">
+                    <label for="server-name">{{ 'label.form.servers'|trans|desc('Servers: ') }}</label>
+                    <select id='server-name' name='server-name' class='form-control'>
+                        {% for server in servers %}
+                        <option>{{ server.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button id='btn-play' class='btn-primary'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                </form>
+            </div>
+             {% else %}
             <form role="form" action="{{ path('fos_user_security_check') }}" method="post">
                 <div class="form-group">
                     <label for="username">{{ 'label.form.login'|trans|desc('Login: ') }}</label>
@@ -17,8 +37,19 @@
 
                 <input type="submit" value="Connexion" />
             </form>
+             {% endif %}
         </div>
+
         <div class="col-xs-6"></div>
+        {% if app.user %}
+        <div class="col-xs-3">
+            <div class="form-group">
+                <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
+                    <button class='btn-warning' type="submit">Déconnection</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
         <div class="col-xs-3">
             <div class="row-fluid">
                 <div id="register-form">                    
@@ -58,6 +89,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}

@@ -2,13 +2,14 @@
 
 namespace Celaris\Game\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Celaris\Game\Controller\GeneralController;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
 
-class GameController extends Controller
+class GameController extends GeneralController
 {
     /**
      * @Route ("/game", name="game")
@@ -34,9 +35,6 @@ class GameController extends Controller
             ->findAll()
         ;
         
-        $serializer = $this->get('jms_serializer');
-        $celaris = $serializer->serialize($allCelaris,'json');
-
-        return array('allCelaris' => $celaris);
+        return array('allCelaris' => $this->serializer($allCelaris, 'array'));
     }
 }

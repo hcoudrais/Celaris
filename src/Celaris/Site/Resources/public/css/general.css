@@ -4,3 +4,7 @@ body {
     font-family:Arial, verdana;
     font-size:14px;
 }
+
+#btn-play {
+    margin-top: 15px;
+}

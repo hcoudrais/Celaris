@@ -2,13 +2,14 @@
 
 namespace Celaris\Game\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Celaris\Game\Controller\GeneralController;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
 
-class BuildingController extends Controller
+class BuildingController extends GeneralController
 {
     /**
      * @Route ("/building", name="menu_building", options={"expose"=true})
@@ -24,10 +25,7 @@ class BuildingController extends Controller
             ->getRepository('CelarisGameBundle:Building')
             ->findAll()
         ;
-        
-        $serializer = $this->get('jms_serializer');
-        $building = $serializer->serialize($allBuilding,'json');
 
-        return array('allBuilding' => $building);
+        return array('allBuilding' => $this->serializer($allBuilding, 'array'));
     }
 }
