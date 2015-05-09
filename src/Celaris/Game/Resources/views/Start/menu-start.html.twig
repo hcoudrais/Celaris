@@ -16,9 +16,9 @@
 
         <div class='row-fluid'>
             <div>
-                <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
+                <form role="form" action="form_start_game" method="post">
                     <h4>{{ 'label.choose.your.pseudo'|trans|desc('Choose your pseudo') }}</h4>
-                    <input type='text' value='{{ app.user.username }}' name='pseudo' />
+                    <input type='text' name='name' value='{{ app.user.username }}'/>
 
                     <h4>{{ 'label.choose.your.race'|trans|desc('Choose your race') }}</h4>
                     <select id='race-selected' name='race'>
@@ -43,7 +43,9 @@
                         <option value='3'>{{ 'label.galaxy.3'|trans|desc('Galaxy 3') }}</options>
                         <option value='4'>{{ 'label.galaxy.4'|trans|desc('Galaxy 4') }}</options>
                     </select>
-                    
+
+                    <input type="hidden" name="serverName" value="{{ serverName }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('startGame') }}">
                     <button type="submit">{{ 'label.go.exclamation'|trans|desc('Go !') }}</button>
                 </form>
             </div>

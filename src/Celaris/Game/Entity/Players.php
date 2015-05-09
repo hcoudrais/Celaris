@@ -87,15 +87,15 @@ class Players
         return $this->userId;
     }
 
-    function getRaceId() {
+    function getRace() {
         return $this->race;
     }
 
-    function getFactionId() {
+    function getFaction() {
         return $this->faction;
     }
 
-    function getConfederationId() {
+    function getConfederation() {
         return $this->confederation;
     }
 
@@ -135,16 +135,16 @@ class Players
         $this->userId = $userId;
     }
 
-    function setRaceId($raceId) {
-        $this->raceId = $raceId;
+    function setRace($race) {
+        $this->race = $race;
     }
 
-    function setFactionId($factionId) {
-        $this->factionId = $factionId;
+    function setFaction($faction) {
+        $this->faction = $faction;
     }
 
-    function setConfederationId($confederationId) {
-        $this->confederationId = $confederationId;
+    function setConfederation($confederation) {
+        $this->confederation = $confederation;
     }
 
     function setPoppulation($poppulation) {
@@ -170,6 +170,4 @@ class Players
     function setResearchPoint($researchPoint) {
         $this->researchPoint = $researchPoint;
     }
-
-
 }

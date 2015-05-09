@@ -33,7 +33,7 @@ class LoginController extends GeneralController
             ->getRepository('CelarisSiteBundle:Server', 'auth')
             ->findAll()
         ;
-        
+
         // Si l'utilisateur est déjà identifié, on récupère les serveurs sur 
         // le(s)quel(s) il a déjà joué pour faire la bonne redirection
         $serversUse = array();

@@ -10,10 +10,24 @@
             </div>
             {% endif %}
 
+{#            Plutot faire un is granted ici#}
             {% if app.user %}
             <div class="form-group">
+                {% if serversUse|length > 0 %}
+                <label for="name">{{ 'label.form.servers.semicolon'|trans|desc('Servers: ') }}</label>
                 <form role="form" action="game" method="post">
-                    <label for="name">{{ 'label.form.servers'|trans|desc('Servers: ') }}</label>
+                    <select id='server-name' name='name' class='form-control'>
+                        {% for serverName in serversUse %}
+                        <option>{{ serverName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
+                    <button id='btn-play' class='btn-primary'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                </form>
+                 {% endif %}
+                <label for="name">{{ 'label.form.servers.enable'|trans|desc('Servers enable ') }}</label>
+                <form role="form" action="start_game" method="post">
                     <select id='server-name' name='name' class='form-control'>
                         {% for server in servers %}
                         <option>{{ server.name }}</option>
