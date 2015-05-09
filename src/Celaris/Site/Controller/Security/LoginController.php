@@ -27,23 +27,29 @@ class LoginController extends GeneralController
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        $servers = null;
-        // Si le visiteur est déjà identifié, on récupère les serveurs disponibles
+        // On récupère la liste de tout les serveurs disponible
+        $allServers = $this
+            ->getDoctrine()
+            ->getRepository('CelarisSiteBundle:Server', 'auth')
+            ->findAll()
+        ;
+        
+        // Si l'utilisateur est déjà identifié, on récupère les serveurs sur 
+        // le(s)quel(s) il a déjà joué pour faire la bonne redirection
+        $serversUse = array();
         if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $servers = $this
-                ->getDoctrine()
-                ->getRepository('CelarisGameBundle:Server')
-                ->findAll()
-            ;
-
-            $servers = $this->serializer($servers, 'json');
+            $servers = $this->getUser()->getServers();
+            foreach($servers as $server) {
+                $serversUse[] = $server->getName();
+            }
         }
 
         return array(
             // Valeur du précédent nom d'utilisateur entré par l'internaute
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
-            'servers'       => json_decode($servers, true)
+            'servers'       => $allServers,
+            'serversUse'    => $serversUse
         );
     }
 }

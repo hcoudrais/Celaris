@@ -26,6 +26,6 @@ class BuildingController extends GeneralController
             ->findAll()
         ;
 
-        return array('allBuilding' => $this->serializer($allBuilding, 'array'));
+        return array('allBuilding' => $this->serializeToArray($allBuilding));
     }
 }

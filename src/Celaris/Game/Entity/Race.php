@@ -5,7 +5,7 @@ namespace Celaris\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Celaris\GameBundle\Entity\RaceRepository")
+ * @ORM\Entity(repositoryClass="Celaris\Game\Entity\RaceRepository")
  * @ORM\Table(name="Race")
  */
 class Race

@@ -4,16 +4,58 @@
     <br/>
     <div class='container-fluid'>
         <div class='row-fluid'>
+            Vous venez d'arriver dans cette nouvelle galaxy.
+            Veuillez nous renseigner votre race.
+
             <div class='pull-right'>
                 <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
                     <button class='btn-warning' type="submit">Déconnection</button>
                 </form>
             </div>
         </div>
-        <div class='row-fluid'>
-            Vous venez d'arriver dans cette nouvelle galaxy.
-            Veuillez nous renseigner votre race.
-        </div>
 
+        <div class='row-fluid'>
+            <div>
+                <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
+                    <h4>{{ 'label.choose.your.pseudo'|trans|desc('Choose your pseudo') }}</h4>
+                    <input type='text' value='{{ app.user.username }}' name='pseudo' />
+
+                    <h4>{{ 'label.choose.your.race'|trans|desc('Choose your race') }}</h4>
+                    <select id='race-selected' name='race'>
+                        <option value=''></options>
+                    {% for race in races %}
+                        <option value='{{ race.name }}'>{{ race.name }}</options>
+                    {% endfor %}
+                    </select>
+
+                    <h4>{{ 'label.choose.your.faction'|trans|desc('Choose your faction') }}</h4>
+                    <select id='faction-selected' name='faction'>
+                        <option value=''></options>
+                    {% for faction in factions %}
+                        <option value='{{ faction.name }}'>{{ faction.name }}</options>
+                    {% endfor %}
+                    </select>
+
+                    <h4>{{ 'label.choose.your.galaxy'|trans|desc('Choose your galaxy') }}</h4>
+                    <select id='galaxy-selected' name='galaxy'>
+                        <option value=''></options>
+                        <option value='2'>{{ 'label.galaxy.2'|trans|desc('Galaxy 2') }}</options>
+                        <option value='3'>{{ 'label.galaxy.3'|trans|desc('Galaxy 3') }}</options>
+                        <option value='4'>{{ 'label.galaxy.4'|trans|desc('Galaxy 4') }}</options>
+                    </select>
+                    
+                    <button type="submit">{{ 'label.go.exclamation'|trans|desc('Go !') }}</button>
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+
+        });
+    </script>
+{% endblock %}

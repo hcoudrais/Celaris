@@ -6,15 +6,43 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class GeneralController extends Controller
 {
-    public function serializer($data, $format)
+    public function getAllRaces()
     {
-        $serializer = $this->get('jms_serializer');
+        $races = $this
+            ->getDoctrine()
+            ->getRepository('CelarisGameBundle:Race')
+            ->findAll()
+        ;
 
-        if ($format == 'array') {
-            $formatData = $serializer->serialize($data, 'json');
-            return json_decode($formatData, true);
+        return $this->serializeToArray($races);
+    }
+
+    public function getAllFactions()
+    {
+        $factions = $this
+            ->getDoctrine()
+            ->getRepository('CelarisGameBundle:Faction')
+            ->findAll()
+        ;
+
+        return $this->serializeToArray($factions);
+    }
+    
+    public function serializeToArray($data)
+    {
+        $var = (array) $data;
+        $result = array();
+
+        foreach($var as $key => &$value) {
+            $regex = '/[\W][*][\W]/';
+            $key = preg_replace($regex,'', $key);
+            
+            if(is_object($value))
+                $value = $this->serializeToArray($value);
+
+            $result[$key] = $value;
         }
 
-        return $serializer->serialize($data, $format);
+        return $result;
     }
 }

@@ -26,6 +26,6 @@ class ResearchController extends GeneralController
             ->findAll()
         ;
 
-        return array('allResearch' => $this->serializer($allResearch, 'array'));
+        return array('allResearch' => $this->serializeToArray($allResearch));
     }
 }

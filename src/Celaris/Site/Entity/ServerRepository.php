@@ -1,6 +1,6 @@
 <?php
 
-namespace Celaris\Game\Entity;
+namespace Celaris\Site\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

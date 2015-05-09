@@ -5,13 +5,13 @@ namespace Celaris\Game\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Celaris\GameBundle\Entity\FactionRepository")
+ * @ORM\Entity(repositoryClass="Celaris\Game\Entity\FactionRepository")
  * @ORM\Table(name="Faction")
  */
 class Faction
 {
     /**
-     * @ORM\Column(name="FonctionId", type="integer", unique=true)
+     * @ORM\Column(name="FactionId", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue
      */
