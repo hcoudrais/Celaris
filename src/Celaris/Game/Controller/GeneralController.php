@@ -33,7 +33,7 @@ class GeneralController extends Controller
         $var = (array) $data;
         $result = array();
 
-        foreach($var as $key => &$value) {
+        foreach($var as $key => $value) {
             $regex = '/[\W][*][\W]/';
             $key = preg_replace($regex,'', $key);
 
@@ -42,7 +42,6 @@ class GeneralController extends Controller
             if (substr($key, 0, 2) === '__')
                 continue;
 
-//            if(is_object($value) && get_object_vars($value) === false)
             if(is_object($value))
                 $value = $this->serializeToArray($value);
 
