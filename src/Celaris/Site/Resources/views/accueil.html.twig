@@ -23,19 +23,19 @@
                     </select>
 
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
-                    <button id='btn-play' class='btn-primary'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                    <button class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
                  {% endif %}
-                <label for="name">{{ 'label.form.servers.enable'|trans|desc('Servers enable ') }}</label>
+                <label for="name">{{ 'label.form.servers.enable.semicolon'|trans|desc('Servers available: ') }}</label>
                 <form role="form" action="start_game" method="post">
                     <select id='server-name' name='name' class='form-control'>
-                        {% for server in servers %}
-                        <option>{{ server.name }}</option>
+                        {% for serverName in servers %}
+                        <option>{{ serverName }}</option>
                         {% endfor %}
                     </select>
 
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
-                    <button id='btn-play' class='btn-primary'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                    <button class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
             </div>
              {% else %}

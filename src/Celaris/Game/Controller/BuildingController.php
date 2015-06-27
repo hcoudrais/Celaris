@@ -20,12 +20,12 @@ class BuildingController extends GeneralController
         if(!$request->isXmlHttpRequest())
             return $this->redirect($this->generateUrl('home_page'));
 
-        $allBuilding = $this
+        $allBuildings = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Building')
-            ->findAll()
+            ->getAllBuildings()
         ;
 
-        return array('allBuilding' => $this->serializeToArray($allBuilding));
+        return array('allBuilding' => $allBuildings);
     }
 }
