@@ -27,29 +27,34 @@ class LoginController extends GeneralController
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        // On récupère la liste de tout les serveurs disponible
         $allServers = $this
             ->getDoctrine()
             ->getRepository('CelarisSiteBundle:Server', 'auth')
-            ->findAll()
+            ->listServersAvailableAndServersUsed($this->getUser())
         ;
+        
+//        $userServer = $this
+//            ->getDoctrine()
+//            ->getRepository('CelarisSiteBundle:UserServer', 'auth')
+//            ->getServersAvailableByUser($this->getUser())
+//        ;
+        
+//        $allServers2 = $this
+//            ->getDoctrine()
+//            ->getRepository('CelarisSiteBundle:Server', 'auth')
+//            ->listServersAvailableAndServersUsed2($this->getUser()->getId())
+//        ;
 
-        // Si l'utilisateur est déjà identifié, on récupère les serveurs sur 
-        // le(s)quel(s) il a déjà joué pour faire la bonne redirection
-        $serversUse = array();
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $servers = $this->getUser()->getServers();
-            foreach($servers as $server) {
-                $serversUse[] = $server->getName();
-            }
-        }
-
+        foreach($this->getUser()->getServers() as $servers)
+            var_dump($servers->getName());
+        
+        // TODO : Enlever les serveurs de $allServers contenu dans $serversUse
         return array(
             // Valeur du précédent nom d'utilisateur entré par l'internaute
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
-            'servers'       => $allServers,
-            'serversUse'    => $serversUse
+            'servers'       => $allServers['servers'],
+            'serversUse'       => $allServers['serversUse']
         );
     }
 }
