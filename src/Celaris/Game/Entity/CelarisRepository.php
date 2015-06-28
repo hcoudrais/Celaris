@@ -6,6 +6,15 @@ use Doctrine\ORM\EntityRepository;
 
 class CelarisRepository extends EntityRepository
 {
+    public function getAllCelaris()
+    {
+        return $this
+            ->createQueryBuilder('c')
+            ->getQuery()
+            ->getArrayResult()
+        ; 
+    }
+    
     public function getOneRandomCelaris($galaxy)
     {
         $mapping = "G0$galaxy%";

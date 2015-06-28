@@ -27,9 +27,9 @@ class Race
      *
      * @return integer
      */
-    public function getFactionId()
+    public function getRaceId()
     {
-        return $this->serverId;
+        return $this->raceId;
     }
 
     /**

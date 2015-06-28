@@ -7,21 +7,14 @@ use Celaris\Game\Entity\Players;
 use Celaris\Game\Form\ServerFormType;
 use Celaris\Game\Form\StartGameFormType;
 
+use Celaris\Game\Views\PlayerView;
+
 use Celaris\Site\Entity\Server;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
-
-/*
- * TODO : Faire 2 routes différentes en faisant 2 menus déroulants,
- * un qui va lister les univers où le player s'est déjà connecté,
- * et un second où il n'ai jamais allé.
- * 
- * Le premier redirigera vers le jeu
- * et l'autre sur le formulaire de race faction pseudo...
- */
 
 class GameController extends GeneralController
 {
@@ -47,11 +40,13 @@ class GameController extends GeneralController
         $player = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Players')
-            ->getPlayerByUserId($userId)
+            ->findOneBy(array('userId' => $userId))
         ;
 
+        $playerView = new PlayerView;
+        
         $param = array(
-            'player' => $this->serializeToArray($player),
+            'player' => $playerView->getPlayerInfoView($player),
             'serverName' => $serverName
         );
 
@@ -101,22 +96,16 @@ class GameController extends GeneralController
 
         $serverName = $form->getData()->getName();
 
-        $user = $this->getUser();
-        $userId = $user->getId();
-
         $player = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Players')
-            ->getPlayerByUserId($userId)
+            ->findOneBy(array('userId' => $this->getUser()->getId()))
         ;
-
-        $param = array(
-            'player' => $this->serializeToArray($player),
-            'serverName' => $serverName
-        );
+        
+        $playerView = new PlayerView;
 
         return $this->render('CelarisGameBundle:Header:header.html.twig', array(
-            'player' => $this->serializeToArray($player),
+            'player' => $playerView->getPlayerInfoView($player),
             'serverName' => $serverName
         ));
     }
@@ -133,10 +122,10 @@ class GameController extends GeneralController
         $allCelaris = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Celaris')
-            ->findAll()
+            ->getAllCelaris()
         ;
         
-        return array('allCelaris' => $this->serializeToArray($allCelaris));
+        return array('allCelaris' => $allCelaris);
     }
 
     /**
@@ -153,8 +142,14 @@ class GameController extends GeneralController
             ->submit($request)
         ;
 
-        if (!$form->isValid())
-            var_dump($form);
+        if (!$form->isValid()) {
+            return $this->render('CelarisGameBundle:Start:menu-start.html.twig', array(
+                'races' => $this->getAllRaces(),
+                'factions' => $this->getAllFactions(),
+                'serverName' => $form->getData()['serverName'],
+                'errors' => $this->getErrorMessages($form)
+            ));
+        }
 
         $data = $form->getData();
         $serverName = $data['serverName'];
@@ -172,12 +167,11 @@ class GameController extends GeneralController
         ;
         $user->addServer($server);
         $emAuth->persist($user);
-        $emAuth->flush();
 
         $player = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Players')
-            ->getPlayerByUserId($userId)
+            ->findOneBy(array('userId' => $userId))
         ;
 
         $race = $this
@@ -205,10 +199,12 @@ class GameController extends GeneralController
         $celaris->setPlayer($player);
         $em->persist($celaris);
 
+        $emAuth->flush();
         $em->flush();
 
+        $playerView = new PlayerView;
         return array(
-            'player' => $this->serializeToArray($player)
+            'player' => $playerView->getPlayerInfoView($player)
         );
     }
 }

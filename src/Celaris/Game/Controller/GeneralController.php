@@ -4,50 +4,46 @@ namespace Celaris\Game\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\Form\Form;
+
 class GeneralController extends Controller
 {
-    public function getAllRaces()
+    public function getErrorMessages(Form $form) 
     {
-        $races = $this
-            ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Race')
-            ->findAll()
-        ;
+        $errors = array();
 
-        return $this->serializeToArray($races);
-    }
-
-    public function getAllFactions()
-    {
-        $factions = $this
-            ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Faction')
-            ->findAll()
-        ;
-
-        return $this->serializeToArray($factions);
-    }
-    
-    public function serializeToArray($data)
-    {
-        $var = (array) $data;
-        $result = array();
-
-        foreach($var as $key => $value) {
-            $regex = '/[\W][*][\W]/';
-            $key = preg_replace($regex,'', $key);
-
-            // Les fonction rajouter par doctrine commence par un '__'
-            // Donc je les vire
-            if (substr($key, 0, 2) === '__')
-                continue;
-
-            if(is_object($value))
-                $value = $this->serializeToArray($value);
-
-            $result[$key] = $value;
+        foreach ($form->getErrors() as $key => $error) {
+            if ($form->isRoot()) {
+                $errors['#'][] = $error->getMessage();
+            } else {
+                $errors[] = $error->getMessage();
+            }
         }
 
-        return $result;
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+
+        return $errors;
+    }
+
+    public function getAllRaces()
+    {
+        return $this
+            ->getDoctrine()
+            ->getRepository('CelarisGameBundle:Race')
+            ->getAllRaces()
+        ;
+    }
+    
+    public function getAllFactions()
+    {
+        return$this
+            ->getDoctrine()
+            ->getRepository('CelarisGameBundle:Faction')
+            ->getAllFactions()
+        ;
     }
 }

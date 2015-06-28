@@ -29,7 +29,7 @@ class Faction
      */
     public function getFactionId()
     {
-        return $this->serverId;
+        return $this->factionId;
     }
 
     /**

@@ -32,23 +32,7 @@ class LoginController extends GeneralController
             ->getRepository('CelarisSiteBundle:Server', 'auth')
             ->listServersAvailableAndServersUsed($this->getUser())
         ;
-        
-//        $userServer = $this
-//            ->getDoctrine()
-//            ->getRepository('CelarisSiteBundle:UserServer', 'auth')
-//            ->getServersAvailableByUser($this->getUser())
-//        ;
-        
-//        $allServers2 = $this
-//            ->getDoctrine()
-//            ->getRepository('CelarisSiteBundle:Server', 'auth')
-//            ->listServersAvailableAndServersUsed2($this->getUser()->getId())
-//        ;
 
-        foreach($this->getUser()->getServers() as $servers)
-            var_dump($servers->getName());
-        
-        // TODO : Enlever les serveurs de $allServers contenu dans $serversUse
         return array(
             // Valeur du précédent nom d'utilisateur entré par l'internaute
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),

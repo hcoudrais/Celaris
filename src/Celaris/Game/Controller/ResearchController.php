@@ -23,9 +23,9 @@ class ResearchController extends GeneralController
         $allResearch = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Research')
-            ->findAll()
+            ->getAllResearch()
         ;
 
-        return array('allResearch' => $this->serializeToArray($allResearch));
+        return array('allResearch' => $allResearch);
     }
 }

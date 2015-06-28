@@ -8,13 +8,14 @@ class PlayersRepository extends EntityRepository
 {
     public function getPlayerByUserId($userId)
     {
-        $players = $this->findAll();
+        $player = $this
+            ->createQueryBuilder('p')
+            ->where('p.userId = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getArrayResult()
+        ;
 
-        foreach ($players as $player) {
-            if ($player->getUserId() == $userId)
-                return $player;
-        }
-
-        return null;
+        return count($player) > 0 ? $player[0] : null;
     }   
 }
