@@ -15,8 +15,6 @@ class PlayerView
             $playerInfo = array (
                 'playerId' => $player->getPlayerId(),
                 'name' => $player->getName(),
-//                'race' => $player->getRace(),
-//                'faction' => $player->getFaction(),
                 'poppulation' => $player->getPoppulation(),
                 'holidayMode' => $player->getHolidayMode(),
                 'description' => $player->getDescription(),

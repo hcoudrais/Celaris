@@ -8,7 +8,7 @@
             Veuillez nous renseigner votre race.
 
             <div class='pull-right'>
-                <form role="form" action="{{ path('fos_user_security_logout') }}" method="post">
+                <form role="form" action="{{ path('fos_user_security_logout') }}" method="get">
                     <button class='btn-warning' type="submit">Déconnection</button>
                 </form>
             </div>
@@ -46,7 +46,7 @@
 
                     <input type="hidden" name="serverName" value="{{ serverName }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('startGame') }}">
-                    <button type="submit">{{ 'label.go.exclamation'|trans|desc('Go !') }}</button>
+                    <button id="submitStartGame" type="submit">{{ 'label.go.exclamation'|trans|desc('Go !') }}</button>
                 </form>
             </div>
         </div>

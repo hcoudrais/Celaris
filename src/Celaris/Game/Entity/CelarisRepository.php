@@ -14,7 +14,7 @@ class CelarisRepository extends EntityRepository
             ->getArrayResult()
         ; 
     }
-    
+
     public function getOneRandomCelaris($galaxy)
     {
         $mapping = "G0$galaxy%";
@@ -32,4 +32,3 @@ class CelarisRepository extends EntityRepository
         return $result[$int];
     } 
 }
-

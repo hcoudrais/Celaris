@@ -12,6 +12,7 @@ use Celaris\Game\Views\PlayerView;
 use Celaris\Site\Entity\Server;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use \Symfony\Component\HttpFoundation\Request as Request;
@@ -20,6 +21,7 @@ class GameController extends GeneralController
 {
     /**
      * @Route ("/start_game", name="start_game")
+     * @Method({"POST"})
      */
     public function indexAction(Request $request)
     {
@@ -43,25 +45,25 @@ class GameController extends GeneralController
             ->findOneBy(array('userId' => $userId))
         ;
 
-        $playerView = new PlayerView;
-        
         $param = array(
-            'player' => $playerView->getPlayerInfoView($player),
             'serverName' => $serverName
         );
 
         // Vérifie si l'utilisateur est sur ce serveur ($serverName)
-        // Si c'est le cas, on le redirige sur le jeu sinon sur le formulaire
-        // du choix de la race, faction, pseudo ...
+        // Si c'est le cas, on le redirige sur le jeu
         $servers = $this->getUser()->getServers();
         foreach($servers as $server) {
-            if ($server->getName() == $serverName)
+            if ($server->getName() == $serverName) {
+                $playerView = new PlayerView;
+                $param['player'] = $playerView->getPlayerInfoView($player);
+
                 return $this->render('CelarisGameBundle:Header:header.html.twig', $param);
+            }
         }
 
         // Si il ne s'est jamais connecté, je créé un nouveau player
         if (!$player instanceof Players) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
 
             $player = new Players();
             $player->setUserId($userId);

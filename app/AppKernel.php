@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new \JMS\TranslationBundle\JMSTranslationBundle(),
             new Celaris\Site\CelarisSiteBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
