@@ -1,7 +1,20 @@
 {% for building in allBuilding %}
-    <div>
-        <span>{{ building.name }}</span>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-xs-3">
+                {{ building.name }} <br/>
+                Image du bâtiment
+            </div>
+            <div class="col-xs-6">
+                Détail du bâtiment
+            </div>
+            <div class="col-xs-3">
+                <a>Level Up</a>
+            </div>
+        </div>
     </div>
+
+    <br/>
 {% else %}
     tarace
 {% endfor %}

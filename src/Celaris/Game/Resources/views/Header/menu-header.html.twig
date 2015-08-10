@@ -2,7 +2,7 @@
     <div id="menu-header">
         <div class="wrapper">
             {# Button to access the menu #}
-            <a class='btn-default btn-primary' href="#vue-general">{{ 'label.general'|trans|desc('Vue général') }}</a>
+            <a class='btn-default btn-primary' href="#overview">{{ 'label.general'|trans|desc('Vue général') }}</a>
             <a id="btn-galaxy" class='btn-default btn-primary' href="#galaxy">{{ 'label.galaxy'|trans|desc('Galaxy') }}</a>
             <a id="btn-building" class='btn-default btn-primary' href="#building">{{ 'label.building'|trans|desc('Building') }}</a>
             <a id="btn-research" class='btn-default btn-primary' href="#research">{{ 'label.research'|trans|desc('Research') }}</a>
@@ -13,11 +13,10 @@
                     <div id="building">
                         <div id="research">
                             <div class="sliderContainer">
-
                                 {# Content of all pages of the caroussel #}
                                 <div class="caroussel-content">
                                     <div class="caroussel-item">
-                                        {% include 'CelarisGameBundle:Header:ninou.html.twig' %}
+                                        {% include 'CelarisGameBundle:Header:overview.html.twig' %}
                                     </div>
 
                                     <div id="map" class="caroussel-item">
@@ -40,75 +39,4 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        var elementActive = document.URL.split('#')[1];
-        var links = $('.wrapper').find('a');
-
-        function initCaroussel() {
-            $.each(links, function() {
-                $(this).click(function() {
-                    $(this).removeClass('active');
-                });
-            });
-
-            $('.wrapper').find('a[href="#' + elementActive + '"]').addClass('active');
-        };
-        initCaroussel();
-
-        function loadMap() {
-            $.ajax({
-                type: "GET",
-                url: Routing.generate('menu_galaxy'),
-                async: true,
-                success: function(res) {
-                    $('#map').html(res);
-                }
-            });
-        };
-
-        function loadBuilding() {
-            $.ajax({
-                type: "GET",
-                url: Routing.generate('menu_building'),
-                async: true,
-                success: function(res) {
-                    $('#building-content').html(res);
-                }
-            });
-        };
-
-        function loadResearch() {
-            $.ajax({
-                type: "GET",
-                url: Routing.generate('menu_research'),
-                async: true,
-                success: function(res) {
-                    $('#research-content').html(res);
-                }
-            });
-        };
-
-        if ($('#btn-galaxy').hasClass('active'))
-            loadMap();
-
-        if ($('#btn-building').hasClass('active'))
-            loadBuilding();
-
-        if ($('#btn-research').hasClass('active'))
-            loadResearch();
-
-        $('#btn-galaxy').click(function() {
-            loadMap();
-        });
-
-        $('#btn-building').click(function() {
-            loadBuilding();
-        });
-
-        $('#btn-research').click(function() {
-            loadResearch();
-        });
-    });
-</script>
-                    
+{% include 'CelarisGameBundle:Header:script-menu-header.html.twig' %}

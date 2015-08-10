@@ -1,0 +1,71 @@
+<script>
+    $(document).ready(function() {
+        var elementActive = document.URL.split('#')[1];
+        var links = $('.wrapper').find('a');
+
+        function initCaroussel() {
+            $.each(links, function() {
+                $(this).click(function() {
+                    $(this).removeClass('active');
+                });
+            });
+
+            $('.wrapper').find('a[href="#' + elementActive + '"]').addClass('active');
+        };
+        initCaroussel();
+
+        function loadMap() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_galaxy'),
+                async: true,
+                success: function(res) {
+                    $('#map').html(res);
+                }
+            });
+        };
+
+        function loadBuilding() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_building'),
+                async: true,
+                success: function(res) {
+                    $('#building-content').html(res);
+                }
+            });
+        };
+
+        function loadResearch() {
+            $.ajax({
+                type: "GET",
+                url: Routing.generate('menu_research'),
+                async: true,
+                success: function(res) {
+                    $('#research-content').html(res);
+                }
+            });
+        };
+
+        if ($('#btn-galaxy').hasClass('active'))
+            loadMap();
+
+        if ($('#btn-building').hasClass('active'))
+            loadBuilding();
+
+        if ($('#btn-research').hasClass('active'))
+            loadResearch();
+
+        $('#btn-galaxy').click(function() {
+            loadMap();
+        });
+
+        $('#btn-building').click(function() {
+            loadBuilding();
+        });
+
+        $('#btn-research').click(function() {
+            loadResearch();
+        });
+    });
+</script>
