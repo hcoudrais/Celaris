@@ -1,21 +1,10 @@
 <?php
 
-namespace Celaris\Game\Tests\ServerTest;
+namespace Celaris\Site\Tests\LoginTest;
 
-use Celaris\Game\Tests\AbstractTest;
+use Celaris\Site\Tests\AbstractTest;
 
 class ServerTest extends AbstractTest
 {
-    public function testFormServerChoice()
-    {
-        $user = $this->getUser();
 
-        $allServers = $this
-            ->getDoctrine()
-            ->getRepository('CelarisSiteBundle:Server')
-            ->listServersAvailableAndServersUsed($user)
-        ;
-
-        var_dump($allServers);
-    }
 }

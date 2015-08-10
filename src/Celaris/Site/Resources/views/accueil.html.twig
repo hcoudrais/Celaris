@@ -10,7 +10,6 @@
             </div>
             {% endif %}
 
-{#            Plutot faire un is granted ici#}
             {% if app.user %}
             <div class="form-group">
                 {% if serversUse|length > 0 %}
@@ -23,7 +22,7 @@
                     </select>
 
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
-                    <button class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                    <button id="submitServer" class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
                  {% endif %}
                 <label for="name">{{ 'label.form.servers.enable.semicolon'|trans|desc('Servers available: ') }}</label>
@@ -35,7 +34,7 @@
                     </select>
 
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
-                    <button class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
+                    <button id="submitServerAvailable" class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
             </div>
              {% else %}
@@ -50,7 +49,7 @@
                     <input type="password" class="form-control" id="password" name="_password" />
                 </div>
 
-                <input type="submit" value="Connexion" />
+                <input id="submitLogin" type="submit" value="Connexion" />
             </form>
              {% endif %}
         </div>
@@ -98,7 +97,7 @@
                                 <input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="{{ csrf_token('registration') }}">
                             </div>
                         <div>
-                            <input type="submit" value="Enregistrer">
+                            <input id="submitRegister" type="submit" value="Enregistrer">
                         </div>
                     </form>
                 </div>
