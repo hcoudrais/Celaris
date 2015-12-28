@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Celaris\Site\Entity\UserRepository")
  * @ORM\Table(name="Users")
 */
 class User extends BaseUser

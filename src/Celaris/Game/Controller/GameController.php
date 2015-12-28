@@ -7,8 +7,6 @@ use Celaris\Game\Entity\Players;
 use Celaris\Game\Form\ServerFormType;
 use Celaris\Game\Form\StartGameFormType;
 
-use Celaris\Game\Views\PlayerView;
-
 use Celaris\Site\Entity\Server;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,6 +23,9 @@ class GameController extends GeneralController
      */
     public function indexAction(Request $request)
     {
+        if(!$this->getUser())
+            return $this->redirect($this->generateUrl('home_page'));
+
         $server = new Server;
         $form = $this
             ->createForm(new ServerFormType, $server)
@@ -35,6 +36,7 @@ class GameController extends GeneralController
             return $this->redirect($this->generateUrl('home_page'));
 
         $serverName = $form->getData()->getName();
+        $this->setServerUsed($serverName);
 
         $user = $this->getUser();
         $userId = $user->getId();
@@ -44,22 +46,6 @@ class GameController extends GeneralController
             ->getRepository('CelarisGameBundle:Players')
             ->findOneBy(array('userId' => $userId))
         ;
-
-        $param = array(
-            'serverName' => $serverName
-        );
-
-        // Vérifie si l'utilisateur est sur ce serveur ($serverName)
-        // Si c'est le cas, on le redirige sur le jeu
-        $servers = $this->getUser()->getServers();
-        foreach($servers as $server) {
-            if ($server->getName() == $serverName) {
-                $playerView = new PlayerView;
-                $param['player'] = $playerView->getPlayerInfoView($player);
-
-                return $this->render('CelarisGameBundle:Header:header.html.twig', $param);
-            }
-        }
 
         // Si il ne s'est jamais connecté, je créé un nouveau player
         if (!$player instanceof Players) {
@@ -84,32 +70,26 @@ class GameController extends GeneralController
 
     /**
      * @Route ("/game", name="game")
+     * @Method({"POST"})
      */
     public function gameAction(Request $request)
     {
+        if (!$this->getUser())
+            return $this->redirect($this->generateUrl('home_page'));
+
         $server = new Server;
         $form = $this
             ->createForm(new ServerFormType, $server)
             ->submit($request)
         ;
+        $data = $form->getData();
 
         if (!$form->isValid())
             return $this->redirect($this->generateUrl('home_page'));
 
-        $serverName = $form->getData()->getName();
+        $this->setServerUsed($data->getName());
 
-        $player = $this
-            ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Players')
-            ->findOneBy(array('userId' => $this->getUser()->getId()))
-        ;
-        
-        $playerView = new PlayerView;
-
-        return $this->render('CelarisGameBundle:Header:header.html.twig', array(
-            'player' => $playerView->getPlayerInfoView($player),
-            'serverName' => $serverName
-        ));
+        return $this->redirect($this->generateUrl('celaris'));
     }
 
     /**
@@ -138,7 +118,7 @@ class GameController extends GeneralController
     {
         if (!$this->getUser())
             return $this->redirect($this->generateUrl('home_page'));
-
+        
         $form = $this
             ->createForm(new StartGameFormType(), array())
             ->submit($request)
@@ -154,7 +134,6 @@ class GameController extends GeneralController
         }
 
         $data = $form->getData();
-        $serverName = $data['serverName'];
 
         $user = $this->getUser();
         $userId = $user->getId();
@@ -165,7 +144,7 @@ class GameController extends GeneralController
         $server = $this
             ->getDoctrine()
             ->getRepository('CelarisSiteBundle:Server', 'auth')
-            ->findOneByName($serverName)
+            ->findOneByName($this->getServerUsed())
         ;
         $user->addServer($server);
         $emAuth->persist($user);
@@ -201,12 +180,11 @@ class GameController extends GeneralController
         $celaris->setPlayer($player);
         $em->persist($celaris);
 
+        // Create building and research
+        
         $emAuth->flush();
         $em->flush();
 
-        $playerView = new PlayerView;
-        return array(
-            'player' => $playerView->getPlayerInfoView($player)
-        );
+        return $this->redirect($this->generateUrl('celaris'));
     }
 }

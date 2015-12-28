@@ -6,59 +6,43 @@ use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Celaris\Site\Entity\User;
 
-class AbstractTest extends WebTestCase
+require_once("app/AppKernel.php");
+
+class AbstractTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\Container
-     */
-    protected $container;
-
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $em;
-
-    /**
-     * @var string
-     */
-    protected $environment = 'test';
-
-    /**
-     * @var bool
-     */
-    protected $debug = true;
-
-    /**
-     * @var string
-     */
-    protected $entityManagerServiceId = 'doctrine.orm.entity_manager';
+    protected $kernel = null;
 
     protected $client = null;
 
-    /**
-     * Constructor
-     *
-     * @param string|null $name     Test name
-     * @param array       $data     Test data
-     * @param string      $dataName Data name
-     */
-    public function __construct($name = null, array $data = array(), $dataName = '')
+    public function setUp()
     {
-        parent::__construct($name, $data, $dataName);
+        parent::setUp();
 
-        if (!static::$kernel) {
-            static::$kernel = self::createKernel(array(
-                'environment' => $this->environment,
-                'debug'       => $this->debug
-            ));
-            static::$kernel->boot();
-        }
+        $this->kernel = new \AppKernel("test", false);
+        $this->kernel->boot();
 
-        $this->container = static::$kernel->getContainer();
-        $this->em = $this->getEntityManager();
+        $this->client = $this->get('test.client');
+        $this->loadFixturesFromDirectory(__DIR__ . '/../DataFixtures');
+    }
+    
+    public function tearDown()
+    {
+        if ($this->kernel)
+            $this->kernel->shutdown();
+
+        unset($this->kernel);
+    }
+
+    protected function get($service)
+    {
+        return $this->kernel->getContainer()->get($service);
+    }
+
+    protected function getDoctrine()
+    {
+        return $this->get('doctrine');
     }
 
     /**
@@ -69,7 +53,7 @@ class AbstractTest extends WebTestCase
     protected function executeFixtures(Loader $loader)
     {
         $purger = new ORMPurger();
-        $executor = new ORMExecutor($this->em, $purger);
+        $executor = new ORMExecutor($this->getDoctrine()->getManager(), $purger);
         $executor->execute($loader->getFixtures());
     }
 
@@ -83,31 +67,6 @@ class AbstractTest extends WebTestCase
         $loader = new Loader();
         $loader->loadFromDirectory($directory);
         $this->executeFixtures($loader);
-    }
-
-    /**
-     * Returns the doctrine orm entity manager
-     *
-     * @return object
-     */
-    protected function getEntityManager()
-    {
-        return $this->container->get($this->entityManagerServiceId);
-    }
-
-    public function setUp() 
-    {
-        parent::setUp();
-
-        $this->client = static::createClient();
-        $this->loadFixturesFromDirectory(__DIR__ . '/../DataFixtures');
-    }
-
-    public function getDoctrine()
-    {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-        return $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
     
     public function loginAs($user, $password)

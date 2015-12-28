@@ -22,6 +22,7 @@ class CelarisRepository extends EntityRepository
         $result = $this
             ->createQueryBuilder('c')
             ->where('c.mapping LIKE :mapping')
+            ->andWhere('c.player IS NULL')
             ->setParameter(':mapping', $mapping)
             ->getQuery()
             ->getResult()
@@ -30,5 +31,5 @@ class CelarisRepository extends EntityRepository
         $int = mt_rand(0, count($result));
 
         return $result[$int];
-    } 
+    }
 }

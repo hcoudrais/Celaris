@@ -25,9 +25,6 @@ class StartGameFormType extends AbstractFormType
             ->add('galaxy', 'text', array(
                 'constraints' => new Assert\NotBlank
             ))
-            ->add('serverName', 'text', array(
-                'constraints' => new Assert\NotBlank
-            ))
         ;
 
         parent::buildForm($builder, $options);

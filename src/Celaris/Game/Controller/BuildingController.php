@@ -19,7 +19,7 @@ class BuildingController extends GeneralController
     {
         if(!$request->isXmlHttpRequest())
             return $this->redirect($this->generateUrl('home_page'));
-
+        
         $allBuildings = $this
             ->getDoctrine()
             ->getRepository('CelarisGameBundle:Building')

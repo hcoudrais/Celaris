@@ -13,8 +13,8 @@
             {% if app.user %}
             <div class="form-group">
                 {% if serversUse|length > 0 %}
-                <label for="name">{{ 'label.form.servers.semicolon'|trans|desc('Servers: ') }}</label>
                 <form role="form" action="game" method="post">
+                    <label for="name">{{ 'label.form.servers.semicolon'|trans|desc('Servers: ') }}</label>
                     <select id='server-name' name='name' class='form-control'>
                         {% for serverName in serversUse %}
                         <option>{{ serverName }}</option>
@@ -25,8 +25,8 @@
                     <button id="submitServer" class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
                  {% endif %}
-                <label for="name">{{ 'label.form.servers.enable.semicolon'|trans|desc('Servers available: ') }}</label>
                 <form role="form" action="start_game" method="post">
+                    <label for="name">{{ 'label.form.servers.enable.semicolon'|trans|desc('Servers available: ') }}</label>
                     <select id='server-name' name='name' class='form-control'>
                         {% for serverName in servers %}
                         <option>{{ serverName }}</option>
@@ -51,6 +51,10 @@
 
                 <input id="submitLogin" type="submit" value="Connexion" />
             </form>
+
+            <form role="form" action="{{ path('register') }}" method="post">
+                <input id="register" class="pull-right" type="submit" value="{{ 'label.register'|trans|desc('Register') }}" />
+            </form>
              {% endif %}
         </div>
 
@@ -61,46 +65,6 @@
                 <form role="form" action="{{ path('fos_user_security_logout') }}" method="get">
                     <button class='btn-warning' type="submit">Déconnection</button>
                 </form>
-            </div>
-        </div>
-        {% else %}
-        <div class="col-xs-3">
-            <div class="row-fluid">
-                <div id="register-form">                    
-                    <div class="form-group">
-                        <label>{{ 'label.register.text'|trans|desc('Pas encore inscrit ?') }}</label><br/>
-                        <input id="register" type="submit" value="{{ 'label.register'|trans|desc('Register') }}" />
-                    </div>
-                </div>
-                <div id="register-form-content" class="pull-left"> 
-                    <form action="{{ path('fos_user_registration_register') }}" method="POST" class="fos_user_registration_register">
-                        <div id="fos_user_registration_form">
-                            <div>
-                                <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required">
-                                <label for="fos_user_registration_form_email" class="required">Adresse e-mail :</label>
-                            </div>
-                            <div>
-                                <input type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" pattern=".{2,}">
-                                <label for="fos_user_registration_form_username" class="required">Nom d'utilisateur :</label>
-                            </div>
-                            <div>
-                                <input type="password" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required">
-                                <label for="fos_user_registration_form_plainPassword_first" class="required">Mot de passe :</label>
-                            </div>
-                            <div>                
-                                <input type="password" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required">
-                                <label for="fos_user_registration_form_plainPassword_second" class="required">Vérification :</label>    
-                            </div>
-
-                        </div>
-                            <div>
-                                <input type="hidden" id="fos_user_registration_form__token" name="fos_user_registration_form[_token]" value="{{ csrf_token('registration') }}">
-                            </div>
-                        <div>
-                            <input id="submitRegister" type="submit" value="Enregistrer">
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
         {% endif %}

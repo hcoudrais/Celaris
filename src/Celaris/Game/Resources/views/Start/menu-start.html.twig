@@ -44,7 +44,6 @@
                         <option value='4'>{{ 'label.galaxy.4'|trans|desc('Galaxy 4') }}</options>
                     </select>
 
-                    <input type="hidden" name="serverName" value="{{ serverName }}">
                     <input type="hidden" name="_token" value="{{ csrf_token('startGame') }}">
                     <button id="submitStartGame" type="submit">{{ 'label.go.exclamation'|trans|desc('Go !') }}</button>
                 </form>

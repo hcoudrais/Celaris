@@ -63,6 +63,14 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
+            srv1:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name_srv1%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -148,3 +156,5 @@ fos_js_routing:
         - menu_building
         - menu_research
         - game
+        - start_game
+        - form_start_game
