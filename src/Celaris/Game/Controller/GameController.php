@@ -6,6 +6,8 @@ use Celaris\Game\Controller\GeneralController;
 use Celaris\Game\Entity\Players;
 use Celaris\Game\Form\ServerFormType;
 use Celaris\Game\Form\StartGameFormType;
+use Celaris\Game\Entity\BuildingCelaris;
+use Celaris\Game\Entity\ResearchPlayer;
 
 use Celaris\Site\Entity\Server;
 
@@ -180,8 +182,30 @@ class GameController extends GeneralController
         $celaris->setPlayer($player);
         $em->persist($celaris);
 
-        // Create building and research
-        
+        $buildings = $this->getDoctrine()->getRepository('CelarisGameBundle:Building')->findAll();
+        $researches = $this->getDoctrine()->getRepository('CelarisGameBundle:Research')->findAll();
+
+        foreach ($buildings as $building) {
+            $buildingCelaris = new BuildingCelaris();
+
+            $buildingCelaris
+                ->setBuilding($building)
+                ->setCelaris($celaris)
+            ;
+
+            $em->persist($buildingCelaris);
+        }
+
+        foreach ($researches as $research) {
+            $researchPlayer = new ResearchPlayer();
+            $researchPlayer
+                ->setResearch($research)
+                ->setPlayer($player)
+            ;
+
+            $em->persist($researchPlayer);
+        }
+
         $emAuth->flush();
         $em->flush();
 

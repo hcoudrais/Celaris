@@ -75,99 +75,99 @@ class Players
      */
     protected $researchPoint;
 
-    function getPlayerId() {
+    public function getPlayerId() {
         return $this->playerId;
     }
 
-    function getName() {
+    public function getName() {
         return $this->name;
     }
 
-    function getUserId() {
+    public function getUserId() {
         return $this->userId;
     }
 
-    function getRace() {
+    public function getRace() {
         return $this->race;
     }
 
-    function getFaction() {
+    public function getFaction() {
         return $this->faction;
     }
 
-    function getConfederation() {
+    public function getConfederation() {
         return $this->confederation;
     }
 
-    function getPoppulation() {
+    public function getPoppulation() {
         return $this->poppulation;
     }
 
-    function getHolidayMode() {
+    public function getHolidayMode() {
         return $this->holidayMode;
     }
 
-    function getDescription() {
+    public function getDescription() {
         return $this->description;
     }
 
-    function getMilitaryPoint() {
+    public function getMilitaryPoint() {
         return $this->militaryPoint;
     }
 
-    function getWorkPoint() {
+    public function getWorkPoint() {
         return $this->workPoint;
     }
 
-    function getResearchPoint() {
+    public function getResearchPoint() {
         return $this->researchPoint;
     }
 
-    function setPlayerId($playerId) {
+    public function setPlayerId($playerId) {
         $this->playerId = $playerId;
     }
 
-    function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
 
-    function setUserId($userId) {
+    public function setUserId($userId) {
         $this->userId = $userId;
     }
 
-    function setRace($race) {
+    public function setRace($race) {
         $this->race = $race;
     }
 
-    function setFaction($faction) {
+    public function setFaction($faction) {
         $this->faction = $faction;
     }
 
-    function setConfederation($confederation) {
+    public function setConfederation($confederation) {
         $this->confederation = $confederation;
     }
 
-    function setPoppulation($poppulation) {
+    public function setPoppulation($poppulation) {
         $this->poppulation = $poppulation;
     }
 
-    function setHolidayMode($holidayMode) {
+    public function setHolidayMode($holidayMode) {
         $this->holidayMode = $holidayMode;
     }
 
-    function setDescription($description) {
+    public function setDescription($description) {
         $this->description = $description;
     }
 
-    function setMilitaryPoint($militaryPoint) {
+    public function setMilitaryPoint($militaryPoint) {
         $this->militaryPoint = $militaryPoint;
     }
 
-    function setWorkPoint($workPoint) {
+    public function setWorkPoint($workPoint) {
         $this->workPoint = $workPoint;
     }
 
-    function setResearchPoint($researchPoint) {
+    public function setResearchPoint($researchPoint) {
         $this->researchPoint = $researchPoint;
     }
 }

@@ -42,52 +42,55 @@ class Celaris
      * @ORM\Column(name="SpaceAvailable", type="integer")
      */
     protected $spaceAvailable;
-
-    function getCelarisId() {
+    
+    public function getCelarisId() {
         return $this->celarisId;
     }
 
-    function getName() {
+    public function getName() {
         return $this->name;
     }
 
-    function getMapping() {
+    public function getMapping() {
         return $this->mapping;
     }
 
-    function getPlayer() {
+    public function getPlayer() {
         return $this->player;
     }
 
-    function getEnergy() {
+    public function getEnergy() {
         return $this->energy;
     }
 
-    function getSpaceAvailable() {
+    public function getSpaceAvailable() {
         return $this->spaceAvailable;
     }
 
-    function setCelarisId($celarisId) {
+    public function setCelarisId($celarisId) {
         $this->celarisId = $celarisId;
     }
 
-    function setName($name) {
+    public function setName($name) {
         $this->name = $name;
     }
 
-    function setMapping($mapping) {
+    public function setMapping($mapping) {
         $this->mapping = $mapping;
     }
 
-    function setPlayer($player) {
+    public function setPlayer($player)
+    {
         $this->player = $player;
+
+        return $this;
     }
 
-    function setEnergy($energy) {
+    public function setEnergy($energy) {
         $this->energy = $energy;
     }
 
-    function setSpaceAvailable($spaceAvailable) {
+    public function setSpaceAvailable($spaceAvailable) {
         $this->spaceAvailable = $spaceAvailable;
     }
 }

@@ -21,4 +21,9 @@ class Building
      * @ORM\Column(name="Name", type="string", length=50)
      */
     protected $name;
+
+    public function getBuildingId()
+    {
+        return $this->buildingId;
+    }
 }
