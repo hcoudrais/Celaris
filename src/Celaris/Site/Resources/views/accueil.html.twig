@@ -24,7 +24,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">
                     <button id="submitServer" class='btn-primary btn-play'type='submit'>{{ 'label.play'|trans|desc('Play') }}</button>
                 </form>
-                 {% endif %}
+                {% endif %}
                 <form role="form" action="start_game" method="post">
                     <label for="name">{{ 'label.form.servers.enable.semicolon'|trans|desc('Servers available: ') }}</label>
                     <select id='server-name' name='name' class='form-control'>

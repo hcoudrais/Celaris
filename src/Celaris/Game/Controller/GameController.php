@@ -45,13 +45,13 @@ class GameController extends GeneralController
 
         $player = $this
             ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Players')
+            ->getRepository('CelarisGameBundle:Players', $serverName)
             ->findOneBy(array('userId' => $userId))
         ;
 
         // Si il ne s'est jamais connecté, je créé un nouveau player
         if (!$player instanceof Players) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()->getManager($serverName);
 
             $player = new Players();
             $player->setUserId($userId);
@@ -140,32 +140,34 @@ class GameController extends GeneralController
         $user = $this->getUser();
         $userId = $user->getId();
 
-        $em = $this->getDoctrine()->getEntityManager();
+        $serverUsed = $this->getServerUsed();
+
+        $em = $this->getDoctrine()->getEntityManager($serverUsed);
         $emAuth = $this->getDoctrine()->getEntityManager('auth');
 
         $server = $this
             ->getDoctrine()
             ->getRepository('CelarisSiteBundle:Server', 'auth')
-            ->findOneByName($this->getServerUsed())
+            ->findOneByName($serverUsed)
         ;
         $user->addServer($server);
         $emAuth->persist($user);
 
         $player = $this
             ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Players')
+            ->getRepository('CelarisGameBundle:Players', $serverUsed)
             ->findOneBy(array('userId' => $userId))
         ;
 
         $race = $this
             ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Race')
+            ->getRepository('CelarisGameBundle:Race', $serverUsed)
             ->findOneByName($data['race'])
         ;
 
         $faction = $this
             ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Faction')
+            ->getRepository('CelarisGameBundle:Faction', $serverUsed)
             ->findOneByName($data['faction'])
         ;
 
@@ -176,14 +178,14 @@ class GameController extends GeneralController
 
         $celaris = $this
             ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Celaris')
+            ->getRepository('CelarisGameBundle:Celaris', $serverUsed)
             ->getOneRandomCelaris($data['galaxy'])
         ;
         $celaris->setPlayer($player);
         $em->persist($celaris);
 
-        $buildings = $this->getDoctrine()->getRepository('CelarisGameBundle:Building')->findAll();
-        $researches = $this->getDoctrine()->getRepository('CelarisGameBundle:Research')->findAll();
+        $buildings = $this->getDoctrine()->getRepository('CelarisGameBundle:Building', $serverUsed)->findAll();
+        $researches = $this->getDoctrine()->getRepository('CelarisGameBundle:Research', $serverUsed)->findAll();
 
         foreach ($buildings as $building) {
             $buildingCelaris = new BuildingCelaris();

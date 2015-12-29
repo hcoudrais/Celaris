@@ -63,15 +63,30 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
-            srv1:
+            Alpha:
                 driver:   "%database_driver%"
                 host:     "%database_host%"
                 port:     "%database_port%"
-                dbname:   "%database_name_srv1%"
+                dbname:   "%database_name_Alpha%"
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
-
+            Beta:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name_Beta%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
+            Gamma:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name_Gamma%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
 #        auto_mapping: true
@@ -81,6 +96,18 @@ doctrine:
                 connection: auth
                 mappings:
                     CelarisSiteBundle: ~
+            Alpha:
+                connection: Alpha
+                mappings:
+                    CelarisGameBundle: ~
+            Beta:
+                connection: Beta
+                mappings:
+                    CelarisGameBundle: ~
+            Gamma:
+                connection: Gamma
+                mappings:
+                    CelarisGameBundle: ~
             default:
                 connection: default
                 mappings:
