@@ -23,8 +23,7 @@ class CelarisController extends GeneralController
             return $this->redirect($this->generateUrl('home_page'));
 
         $player = $this
-            ->getDoctrine()
-            ->getRepository('CelarisGameBundle:Players', $this->getServerUsed())
+            ->getRepository('CelarisGameBundle:Players')
             ->findOneBy(array('userId' => $this->getUser()->getId()))
         ;
 

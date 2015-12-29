@@ -21,7 +21,6 @@ class ResearchController extends GeneralController
             return $this->redirect($this->generateUrl('home_page'));
 
         $allResearch = $this
-            ->getDoctrine()
             ->getRepository('CelarisGameBundle:Research')
             ->getAllResearch()
         ;

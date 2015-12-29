@@ -34,7 +34,6 @@ class LoginController extends GeneralController
         }
 
         $allServers = $this
-            ->getDoctrine()
             ->getRepository('CelarisSiteBundle:Server', 'auth')
             ->listServersAvailableAndServersUsed($this->getUser())
         ;

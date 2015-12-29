@@ -34,7 +34,6 @@ class GeneralController extends Controller
     protected function getAllRaces()
     {
         return $this
-            ->getDoctrine()
             ->getRepository('CelarisGameBundle:Race')
             ->getAllRaces()
         ;
@@ -43,7 +42,6 @@ class GeneralController extends Controller
     protected function getAllFactions()
     {
         return $this
-            ->getDoctrine()
             ->getRepository('CelarisGameBundle:Faction')
             ->getAllFactions()
         ;
@@ -52,7 +50,6 @@ class GeneralController extends Controller
     protected function getAllServersName()
     {
         $servers = $this
-            ->getDoctrine()
             ->getRepository('CelarisSiteBundle:Server', 'auth')
             ->getAllServers()
         ;
@@ -82,5 +79,21 @@ class GeneralController extends Controller
             $this->redirect($this->generateUrl('home_page'));
 
         return $session->get('serverName');
+    }
+
+    protected function getRepository($entity, $serverName = null)
+    {
+        if (is_null($serverName))
+            $serverName = $this->getServerUsed();
+
+        return $this->getDoctrine()->getRepository($entity, $serverName);
+    }
+
+    protected function getManager($serverName = null)
+    {
+        if (is_null($serverName))
+            $serverName = $this->getServerUsed();
+
+        return $this->getDoctrine()->getManager($serverName);
     }
 }

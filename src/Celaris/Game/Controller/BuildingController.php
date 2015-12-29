@@ -21,7 +21,6 @@ class BuildingController extends GeneralController
             return $this->redirect($this->generateUrl('home_page'));
         
         $allBuildings = $this
-            ->getDoctrine()
             ->getRepository('CelarisGameBundle:Building')
             ->getAllBuildings()
         ;
