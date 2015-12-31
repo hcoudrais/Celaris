@@ -1,34 +1,107 @@
 <?php
 
-namespace Celaris\Game\Entity;
+namespace Celaris\Game\Entity\Building;
 
-use Doctrine\ORM\Mapping as ORM;
+use Celaris\Game\Entity\BuildingCelaris;
 
-/**
- * @ORM\Entity(repositoryClass="Celaris\Game\Entity\FleetRepository")
- * @ORM\Table(name="Fleet")
- */
-class Fleet
+class CloningCenter
 {
     /**
-     * @ORM\Column(name="FleetId", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @var BuildingCelaris 
      */
-    protected $fleetId;
+    private $buildingCelaris;
+
+    private function getLevel()
+    {
+        return $this->buildingCelaris->getLevel();
+    }
+    
+    public function __construct(BuildingCelaris $buildingCelaris)
+    {
+        $this->buildingCelaris = $buildingCelaris;
+    }
+
+    public function mineraisCompute()
+    {
+        $minerais = 10 * (pow(($this->getLevel() + 1), 4)) + 1000;
+
+        $this->buildingCelaris->setMinerais($minerais);
+    }
+
+    public function cristalCompute()
+    {
+        $cristaux = 7 * (pow(($this->getLevel() + 1), 4)) + 500;
+
+        $this->buildingCelaris->setCristaux($cristaux);
+    }
+
+    public function nobeliumCompute()
+    {
+        $nobelium = 4 * (pow(($this->getLevel() + 1), 4)) + 300;
+
+        $this->buildingCelaris->setNobelium($nobelium);
+    }
+
+    public function hydrogeneCompute()
+    {
+        $hydrogene = 2 * (pow(($this->getLevel() + 1), 4)) + 300;
+
+        $this->buildingCelaris->setHydrogene($hydrogene);
+    }
+
+    public function albinionCompute()
+    {
+        $this->buildingCelaris->setAlbinion(0);
+    }
+
+    public function stockageCompute()
+    {
+        $stockage =pow(2, $this->getLevel()) + ($this->getLevel() * 100) + 10;
+
+        $this->buildingCelaris->setStockage($stockage);
+    }
+
+    public function constructTimeCompute($ccLvl)
+    {
+        $time = round((8000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+
+        $this->buildingCelaris->setConstructTime($time);
+    }
+
+    public function workPointCompute()
+    {
+        $point = 0;
+
+        if ($this->getLevel() > 0)
+            $point = (round(($this->buildingCelaris->getSumRessources()) / 500) * $this->getLevel()) - $this->buildingCelaris->getWorkPoint();
+
+        $this->buildingCelaris->setWorkPoint($point);
+    }
 
     /**
-     * @ORM\Column(name="Name", type="string", length=50)
+     * $ccLvl représente le centre de commandement dont on a besoin
+     * pour calculer le temps de construction des bâtiments
+     * 
+     * @param int $ccLvl
+     * @param boolean $init
      */
-    protected $name;
+    public function levelUp($ccLvl = 0, $init = false)
+    {
+        $this->mineraisCompute();
+        $this->cristalCompute();
+        $this->nobeliumCompute();
+        $this->hydrogeneCompute();
+        $this->albinionCompute();
+        $this->stockageCompute();
+        $this->constructTimeCompute($ccLvl);
+        $this->workPointCompute();
+        $this->buildingCelaris->setEnergy(-1);
+        $this->buildingCelaris->setSpaceRequired(-1);
 
-    /**
-     * @ORM\OneToMany(targetEntity="Ship", mappedBy="shipId")
-     */
-    protected $ships;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Celaris", mappedBy="celarisId")
-     */
-    protected $celarisId;
+        if (!$init) {
+            $this->buildingCelaris->setLevel($this->getLevel() + 1);
+        } else {
+            $this->buildingCelaris->setEnabled(false);
+        }
+    }
 }
