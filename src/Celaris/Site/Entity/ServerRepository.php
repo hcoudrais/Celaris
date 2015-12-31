@@ -6,11 +6,6 @@ use Doctrine\ORM\EntityRepository;
 
 class ServerRepository extends EntityRepository
 {
-    private $servers = array(
-        'default',
-        'Alpha' => 'srv1'
-    );
-
     public function listServersAvailableAndServersUsed($user)
     {
         // On récupère la liste de tout les serveurs disponible

@@ -20,7 +20,7 @@ class CelarisController extends GeneralController
     public function celarisAction()
     {
         if (!$this->getUser())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
 
         $player = $this
             ->getRepository('CelarisGameBundle:Players')

@@ -21,4 +21,11 @@ class Confederation
      * @ORM\Column(name="Name", type="string", length=50)
      */
     protected $name;
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
 }

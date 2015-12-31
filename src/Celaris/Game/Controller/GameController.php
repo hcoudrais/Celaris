@@ -26,7 +26,7 @@ class GameController extends GeneralController
     public function indexAction(Request $request)
     {
         if(!$this->getUser())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
 
         $server = new Server;
         $form = $this
@@ -35,7 +35,7 @@ class GameController extends GeneralController
         ;
 
         if (!$form->isValid())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
 
         $serverName = $form->getData()->getName();
         $this->setServerUsed($serverName);
@@ -76,7 +76,7 @@ class GameController extends GeneralController
     public function gameAction(Request $request)
     {
         if (!$this->getUser())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
 
         $server = new Server;
         $form = $this
@@ -86,7 +86,7 @@ class GameController extends GeneralController
         $data = $form->getData();
 
         if (!$form->isValid())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
 
         $this->setServerUsed($data->getName());
 
@@ -99,8 +99,8 @@ class GameController extends GeneralController
      */
     public function mapAction(Request $request)
     {
-        if(!$request->isXmlHttpRequest() || !$this->getUser())
-            return $this->redirect($this->generateUrl('home_page'));
+        if(!$request->isXmlHttpRequest())
+            return $this->redirect($this->generateUrl('logout'));
 
         $allCelaris = $this
             ->getRepository('CelarisGameBundle:Celaris')
@@ -117,7 +117,7 @@ class GameController extends GeneralController
     public function startGameAction(Request $request)
     {
         if (!$this->getUser())
-            return $this->redirect($this->generateUrl('home_page'));
+            return $this->redirect($this->generateUrl('logout'));
         
         $form = $this
             ->createForm(new StartGameFormType(), array())
