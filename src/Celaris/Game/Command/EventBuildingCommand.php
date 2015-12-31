@@ -40,12 +40,10 @@ class EventBuildingCommand extends EventCommand
                 'building' => $building
             ));
 
-            // Soustraire les ressources du bâtiment au celaris
+            // Monter d'un niveau le bâtiment BuildingCelaris
 
-            // Monter d'un niveau le bâtiment
-
-            // Dans l'entité Building, set tous les autres champs liés aux ressources 
-            // (life cycle back, trigger onUpdate ou set au setLevel)
+            // Dans l'entité BuildingCelaris, set tous les autres champs
+            // besoin du centre de commandemant pour définir le temps de construction
 
             // Ajouter les points au classement général (table Player, workPoint)
             $player = $this

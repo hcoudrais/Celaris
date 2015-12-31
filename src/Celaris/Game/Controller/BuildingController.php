@@ -29,7 +29,7 @@ class BuildingController extends GeneralController
     }
 
     /**
-     * @Route ("/building/lvlup", name="building_lvlup", options={"expose"=true})
+     * @Route ("/building_lvlup", name="building_lvlup", options={"expose"=true})
      */
     public function buildingLevelUpAction(Request $request)
     {

@@ -2,6 +2,9 @@
 
 namespace Celaris\Game\Entity;
 
+use Celaris\Game\Entity\Building;
+use Celaris\Game\Entity\Celaris;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,7 +32,7 @@ class BuildingCelaris
     /**
      * @ORM\Column(name="Level", type="integer")
      */
-    protected $level;
+    protected $level = 0;
 
     /**
      * @ORM\Column(name="Minerais", type="integer")
@@ -71,17 +74,25 @@ class BuildingCelaris
      */
     protected $energy;
 
-    public function __construct()
+    /**
+     * @ORM\Column(name="Enabled", type="boolean")
+     */
+    protected $enabled;
+
+    /**
+     * @ORM\Column(name="WorkPoint", type="integer")
+     */
+    protected $workPoint;
+
+    /**
+     * @ORM\Column(name="SpaceRequired", type="integer")
+     */
+    protected $spaceRequired;
+
+    public function __construct(Building $building, Celaris $celaris)
     {
-        $this->level = 0;
-        $this->minerais = 0;
-        $this->cristaux = 0;
-        $this->nobelium = 0;
-        $this->hydrogene = 0;
-        $this->albinion = 0;
-        $this->stockage = 0;
-        $this->constructTime = 0;
-        $this->energy = 0;
+        $this->building = $building;
+        $this->celaris = $celaris;
     }
 
     public function getId()
@@ -142,6 +153,21 @@ class BuildingCelaris
     public function getEnergy()
     {
         return $this->energy;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function getWorkPoint()
+    {
+        return $this->workPoint;
+    }
+
+    public function getSpaceRequired()
+    {
+        return $this->spaceRequired;
     }
 
     public function setBuilding($building)
@@ -219,5 +245,36 @@ class BuildingCelaris
         $this->energy = $energy;
 
         return $this;
+    }
+
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function setWorkPoint($workPoint)
+    {
+        $this->workPoint = $workPoint;
+
+        return $this;
+    }
+
+    public function setSpaceRequired($spaceRequired)
+    {
+        $this->spaceRequired = $spaceRequired;
+
+        return $this;
+    }
+
+    public function getSumRessources()
+    {
+        return  $this->getMinerais()  + 
+                $this->getCristaux()  + 
+                $this->getNobelium()  + 
+                $this->getHydrogene() +
+                $this->getAlbinion()
+        ;
     }
 }
