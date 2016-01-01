@@ -44,24 +44,30 @@ class Celaris
     protected $spaceAvailable;
 
     /**
+     * @ORM\ManyToOne(targetEntity="TypeCelaris", cascade={"persist"})
+     * @ORM\JoinColumn(name="TypeCelarisId", referencedColumnName="TypeCelarisId")
+     */
+    protected $typeCelaris;
+
+    /**
      * @ORM\Column(name="Minerais", type="integer")
      */
-    protected $minerais;
+    protected $minerais = 5000;
 
     /**
      * @ORM\Column(name="Cristaux", type="integer")
      */
-    protected $cristaux;
+    protected $cristaux = 5000;
 
     /**
      * @ORM\Column(name="Nobelium", type="integer")
      */
-    protected $nobelium;
+    protected $nobelium = 3000;
 
     /**
      * @ORM\Column(name="Hydrogene", type="integer")
      */
-    protected $hydrogene;
+    protected $hydrogene = 1000;
 
     /**
      * @ORM\Column(name="Albinion", type="integer")
@@ -82,6 +88,10 @@ class Celaris
 
     public function getPlayer() {
         return $this->player;
+    }
+
+    public function getTypeCelaris() {
+        return $this->typeCelaris;
     }
 
     public function getEnergy() {
@@ -138,6 +148,13 @@ class Celaris
     public function setPlayer($player)
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+    public function setTypeCelaris($typeCelaris)
+    {
+        $this->typeCelaris = $typeCelaris;
 
         return $this;
     }

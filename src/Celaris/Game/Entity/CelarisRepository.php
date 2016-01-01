@@ -32,4 +32,30 @@ class CelarisRepository extends EntityRepository
 
         return $result[$int];
     }
+
+    public function findAllPlanets()
+    {
+        $mapping = '%0';
+
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.mapping LIKE :mapping')
+            ->setParameter(':mapping', $mapping)
+            ->getQuery()
+            ->getResult()
+        ; 
+    }
+
+    public function findAllMoons()
+    {
+        $mapping = '%0';
+
+        return $this
+            ->createQueryBuilder('c')
+            ->where('c.mapping NOT LIKE :mapping')
+            ->setParameter(':mapping', $mapping)
+            ->getQuery()
+            ->getResult()
+        ; 
+    }
 }
