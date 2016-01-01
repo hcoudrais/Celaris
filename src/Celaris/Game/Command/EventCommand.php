@@ -3,21 +3,26 @@
 namespace Celaris\Game\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class EventCommand extends ContainerAwareCommand
 {
-    protected function getSession()
-    {
-        return $this->getContainer()->get('session');
-    }
+    protected $serverName;
 
     protected function getDoctrine()
     {
         return $this->getContainer()->get('doctrine');
+    }
+
+    protected function getManager()
+    {
+        return $this->getDoctrine()->getManager($this->serverName);
+    }
+
+    protected function getRepository($entity)
+    {
+        return $this->getDoctrine()->getRepository($entity, $this->serverName);
     }
 
     protected function getEventBuilding()
