@@ -77,6 +77,12 @@ class GalacticCity
      */
     public function levelUp($ccLvl = 0, $init = false)
     {
+        if (!$init) {
+            $this->buildingCelaris->setLevel($this->getLevel() + 1);
+        } else {
+            $this->buildingCelaris->setEnabled(true);
+        }
+
         $this->mineraisCompute();
         $this->cristalCompute();
         $this->nobeliumCompute();
@@ -87,11 +93,5 @@ class GalacticCity
         $this->workPointCompute();
         $this->buildingCelaris->setEnergy(0);
         $this->buildingCelaris->setSpaceRequired(12);
-
-        if (!$init) {
-            $this->buildingCelaris->setLevel($this->getLevel() + 1);
-        } else {
-            $this->buildingCelaris->setEnabled(true);
-        }
     }
 }

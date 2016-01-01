@@ -77,6 +77,12 @@ class SpyCenter
      */
     public function levelUp($ccLvl = 0, $init = false)
     {
+        if (!$init) {
+            $this->buildingCelaris->setLevel($this->getLevel() + 1);
+        } else {
+            $this->buildingCelaris->setEnabled(false);
+        }
+
         $this->mineraisCompute();
         $this->cristalCompute();
         $this->nobeliumCompute();
@@ -87,11 +93,5 @@ class SpyCenter
         $this->workPointCompute();
         $this->buildingCelaris->setEnergy(-2);
         $this->buildingCelaris->setSpaceRequired(-1);
-
-        if (!$init) {
-            $this->buildingCelaris->setLevel($this->getLevel() + 1);
-        } else {
-            $this->buildingCelaris->setEnabled(false);
-        }
     }
 }

@@ -79,6 +79,12 @@ class Nobelium
      */
     public function levelUp($ccLvl = 0, $init = false)
     {
+        if (!$init) {
+            $this->buildingCelaris->setLevel($this->getLevel() + 1);
+        } else {
+            $this->buildingCelaris->setEnabled(true);
+        }
+
         $this->mineraisCompute();
         $this->cristalCompute();
         $this->nobeliumCompute();
@@ -89,11 +95,5 @@ class Nobelium
         $this->workPointCompute();
         $this->buildingCelaris->setEnergy(-1);
         $this->buildingCelaris->setSpaceRequired(-1);
-
-        if (!$init) {
-            $this->buildingCelaris->setLevel($this->getLevel() + 1);
-        } else {
-            $this->buildingCelaris->setEnabled(true);
-        }
     }
 }
