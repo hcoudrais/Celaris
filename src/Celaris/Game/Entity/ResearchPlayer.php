@@ -179,4 +179,13 @@ class ResearchPlayer
 
         return $this;
     }
+
+    public function getSumRessourcesWithoutALbinion()
+    {
+        return  $this->getMinerais()  + 
+                $this->getCristaux()  + 
+                $this->getNobelium()  + 
+                $this->getHydrogene()
+        ;
+    }
 }

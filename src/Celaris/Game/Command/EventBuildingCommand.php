@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Celaris\Game\Entity\Building;
+use Celaris\Game\Entity\Research;
 use Celaris\Game\Entity\BuildingSpecific;
 
 use DateTime;
@@ -29,17 +30,17 @@ class EventBuildingCommand extends EventCommand
             'celaris' => $celaris
         ));
 
-//        $researchesPlayer = $this->getRepository('CelarisGameBundle:ResearchPlayer')->findBy(array(
-//            'player' => $player
-//        ));
+        $researchesPlayer = $this->getRepository('CelarisGameBundle:ResearchPlayer')->findBy(array(
+            'player' => $player
+        ));
 
         // Get level for all building
         foreach ($buildingsCelaris as $buildingCelaris)
             $buildingsLvl[$buildingCelaris->getBuilding()->getBuildingId()] = $buildingCelaris->getLevel();
 
         // Get level for all research
-//        foreach ($researchesPlayer as $researchPlayer)
-//            $researchesLvl[$researchPlayer->getResearch()->getResearchId()] = $researchPlayer->getLevel();
+        foreach ($researchesPlayer as $researchPlayer)
+            $researchesLvl[$researchPlayer->getResearch()->getResearchId()] = $researchPlayer->getLevel();
 
         $buildings = $this->getRepository('CelarisGameBundle:Building')->findAll();
 
@@ -72,10 +73,10 @@ class EventBuildingCommand extends EventCommand
                     if ($buildingsLvl[Building::$findBuildingIdByName[$buildingName]] < $buildingLvl)
                         $isEnabled = false;
 
-//            if (isset($preRequisites['research']))
-//                foreach ($preRequisites['research'] as $researchName => $researchLvl)
-//                    if ($researchesLvl[$researchName] < $researchLvl)
-//                        $isEnabled = false;
+            if (isset($preRequisites['research']))
+                foreach ($preRequisites['research'] as $researchName => $researchLvl)
+                    if ($researchesLvl[Research::$findResearchIdByName[$researchName]] < $researchLvl)
+                        $isEnabled = false;
 
             if ($isEnabled) {
                 $buildingsCelarisToSet->setEnabled(true);
