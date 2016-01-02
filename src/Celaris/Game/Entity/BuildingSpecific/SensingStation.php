@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class SpyCenter
+class SensingStation
 {
     /**
      * @var BuildingCelaris 
@@ -23,7 +23,7 @@ class SpyCenter
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(1800 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(3000 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
@@ -33,12 +33,12 @@ class SpyCenter
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(1000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(4000 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(0);
+        $this->buildingCelaris->setHydrogene(5000 * ($this->getLevel() + 1));
     }
 
     public function albinionCompute()
@@ -53,7 +53,7 @@ class SpyCenter
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((2500 * (($this->getLevel() * 3) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -80,7 +80,7 @@ class SpyCenter
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(false);
+            $this->buildingCelaris->setEnabled(true);
         }
 
         $this->mineraisCompute();

@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class CristalStorage
+class Albinion
 {
     /**
      * @var BuildingCelaris 
@@ -15,7 +15,7 @@ class CristalStorage
     {
         return $this->buildingCelaris->getLevel();
     }
-    
+
     public function __construct(BuildingCelaris $buildingCelaris)
     {
         $this->buildingCelaris = $buildingCelaris;
@@ -23,28 +23,22 @@ class CristalStorage
 
     public function mineraisCompute()
     {
-        $minerais = 480 * (pow(($this->getLevel() + 1), 2)) + 400;
-
-        $this->buildingCelaris->setMinerais($minerais);
+        $this->buildingCelaris->setMinerais(500 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $cristal = 400 * (pow(($this->getLevel() + 1), 2)) + 400;
-
-        $this->buildingCelaris->setCristaux($cristal);
+        $this->buildingCelaris->setCristaux(450 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $nobelium = 225 * (pow(($this->getLevel() + 1), 2)) + 300;
-
-        $this->buildingCelaris->setNobelium($nobelium);
+        $this->buildingCelaris->setNobelium(300 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(0);
+        $this->buildingCelaris->setHydrogene(150 * ($this->getLevel() + 1));
     }
 
     public function albinionCompute()
@@ -54,14 +48,14 @@ class CristalStorage
 
     public function stockageCompute()
     {
-        $stockage = (3000 * pow($this->getLevel(), 2)) - (2000 * $this->getLevel()) + 5000;
+        $stockage = 2 * pow($this->getLevel(), 2);
 
         $this->buildingCelaris->setStockage($stockage);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((4000 * ($this->buildingCelaris->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }

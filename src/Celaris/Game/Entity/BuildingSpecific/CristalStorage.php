@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class Bank
+class CristalStorage
 {
     /**
      * @var BuildingCelaris 
@@ -23,27 +23,21 @@ class Bank
 
     public function mineraisCompute()
     {
-        $minerais = 5000;
-        if ($this->getLevel() > 0)
-            $minerais = (25000 * pow($this->getLevel(), 2)) - (50000 * $this->getLevel()) + 100000;
+        $minerais = 480 * (pow(($this->getLevel() + 1), 2)) + 400;
 
         $this->buildingCelaris->setMinerais($minerais);
     }
 
     public function cristalCompute()
     {
-        $cristaux = 2000;
-        if ($this->getLevel() > 0)
-            $cristaux = (10000 * pow($this->getLevel(), 2)) - (20000 * $this->getLevel()) + 40000;
+        $cristal = 400 * (pow(($this->getLevel() + 1), 2)) + 400;
 
-        $this->buildingCelaris->setCristaux($cristaux);
+        $this->buildingCelaris->setCristaux($cristal);
     }
 
     public function nobeliumCompute()
     {
-        $nobelium = 4000;
-        if ($this->getLevel() > 0)
-            $nobelium = (15000 * pow($this->getLevel(), 2)) - (30000 * $this->getLevel()) + 60000;
+        $nobelium = 225 * (pow(($this->getLevel() + 1), 2)) + 300;
 
         $this->buildingCelaris->setNobelium($nobelium);
     }
@@ -60,12 +54,14 @@ class Bank
 
     public function stockageCompute()
     {
-        $this->buildingCelaris->setStockage(0);
+        $stockage = (3000 * pow($this->getLevel(), 2)) - (2000 * $this->getLevel()) + 5000;
+
+        $this->buildingCelaris->setStockage($stockage);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4400 * ((pow($this->getLevel(), 2)) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((4000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -92,7 +88,7 @@ class Bank
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(false);
+            $this->buildingCelaris->setEnabled(true);
         }
 
         $this->mineraisCompute();
@@ -103,7 +99,7 @@ class Bank
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-5);
+        $this->buildingCelaris->setEnergy(-1);
         $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class SensingStation
+class SolarCenter
 {
     /**
      * @var BuildingCelaris 
@@ -23,22 +23,22 @@ class SensingStation
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(3000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(450 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(0);
+        $this->buildingCelaris->setCristaux(1100 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(4000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(750 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(5000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setHydrogene(600 * ($this->getLevel() + 1));
     }
 
     public function albinionCompute()
@@ -53,7 +53,7 @@ class SensingStation
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((2500 * (($this->getLevel() * 3) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((1700 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -80,7 +80,7 @@ class SensingStation
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(true);
+            $this->buildingCelaris->setEnabled(false);
         }
 
         $this->mineraisCompute();
@@ -91,7 +91,7 @@ class SensingStation
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-2);
+        $this->buildingCelaris->setEnergy(10);
         $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

@@ -163,8 +163,13 @@ class Players
         $this->militaryPoint = $militaryPoint;
     }
 
-    public function setWorkPoint($workPoint) {
-        $this->workPoint = $workPoint;
+    public function setWorkPoint($workPoint, $action = 'add')
+    {
+        if ($action == 'add') {
+            $this->workPoint = $this->workPoint + $workPoint;
+        } else {
+            $this->workPoint = $this->workPoint - $workPoint;
+        }
     }
 
     public function setResearchPoint($researchPoint) {

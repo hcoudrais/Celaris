@@ -1,11 +1,11 @@
 <?php
 
-namespace Celaris\Site\Entity;
+namespace Celaris\Game\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Celaris\Site\Entity\EventBuildingRepository")
+ * @ORM\Entity(repositoryClass="Celaris\Game\Entity\EventBuildingRepository")
  * @ORM\Table(name="EventBuilding")
  */
 class EventBuilding
@@ -15,22 +15,25 @@ class EventBuilding
      * @ORM\Id
      * @ORM\GeneratedValue
      */
-    protected $Id;
+    protected $id;
 
     /**
-     * @ORM\Column(name="PlayerId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Players", cascade={"persist"})
+     * @ORM\JoinColumn(name="PlayerId", referencedColumnName="PlayerId")
      */
-    protected $playerId;
+    protected $player;
 
     /**
-     * @ORM\Column(name="CelarisId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Celaris", cascade={"persist"})
+     * @ORM\JoinColumn(name="CelarisId", referencedColumnName="CelarisId")
      */
-    protected $celarisId;
+    protected $celaris;
 
     /**
-     * @ORM\Column(name="BuildingId", type="integer")
+     * @ORM\ManyToOne(targetEntity="Building", cascade={"persist"})
+     * @ORM\JoinColumn(name="BuildingId", referencedColumnName="BuildingId")
      */
-    protected $buildingId;
+    protected $building;
 
     /**
      * @ORM\Column(name="ServerName", type="string", length=100)
@@ -57,16 +60,20 @@ class EventBuilding
      */
     protected $message;
 
-    public function getPlayerId() {
-        return $this->playerId;
+    public function getId() {
+        return $this->id;
     }
 
-    public function getCelarisId() {
-        return $this->celarisId;
+    public function getPlayer() {
+        return $this->player;
     }
 
-    public function getBuildingId() {
-        return $this->buildingId;
+    public function getCelaris() {
+        return $this->celaris;
+    }
+
+    public function getBuilding() {
+        return $this->building;
     }
 
     public function getServerName() {
@@ -89,16 +96,16 @@ class EventBuilding
         return $this->message;
     }
 
-    public function setPlayerId($playerId) {
-        $this->playerId = $playerId;
+    public function setPlayer($player) {
+        $this->player = $player;
     }
 
-    public function setCelarisId($celarisId) {
-        $this->celarisId = $celarisId;
+    public function setCelaris($celaris) {
+        $this->celaris = $celaris;
     }
 
-    public function setBuildingId($buildingId) {
-        $this->buildingId = $buildingId;
+    public function setBuilding($building) {
+        $this->building = $building;
     }
 
     public function setServerName($serverName) {

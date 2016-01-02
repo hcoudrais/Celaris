@@ -33,17 +33,6 @@ class Faction
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return Faction
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-    /**
      * Get name
      *
      * @return string

@@ -87,6 +87,14 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
+            Game:
+                driver:   "%database_driver%"
+                host:     "%database_host%"
+                port:     "%database_port%"
+                dbname:   "%database_name%"
+                user:     "%database_user%"
+                password: "%database_password%"
+                charset:  UTF8
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
 #        auto_mapping: true
@@ -106,6 +114,10 @@ doctrine:
                     CelarisGameBundle: ~
             Gamma:
                 connection: Gamma
+                mappings:
+                    CelarisGameBundle: ~
+            Game:
+                connection: Game
                 mappings:
                     CelarisGameBundle: ~
             default:

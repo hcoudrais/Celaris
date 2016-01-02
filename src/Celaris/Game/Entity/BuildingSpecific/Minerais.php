@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class GalacticCity
+class Minerais
 {
     /**
      * @var BuildingCelaris 
@@ -23,17 +23,17 @@ class GalacticCity
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(900 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(700 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(450 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(350 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(0);
+        $this->buildingCelaris->setNobelium(150 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
@@ -48,12 +48,14 @@ class GalacticCity
 
     public function stockageCompute()
     {
-        $this->buildingCelaris->setStockage(0);
+        $stockage = ((7 * pow($this->getLevel(), 2)) + 50) * ($this->getLevel() + 1);
+
+        $this->buildingCelaris->setStockage($stockage);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((1000 * (($this->getLevel() * 5) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((1800 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -91,7 +93,7 @@ class GalacticCity
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(0);
-        $this->buildingCelaris->setSpaceRequired(12);
+        $this->buildingCelaris->setEnergy(-1);
+        $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

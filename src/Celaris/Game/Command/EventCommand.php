@@ -28,8 +28,7 @@ abstract class EventCommand extends ContainerAwareCommand
     protected function getEventBuilding()
     {
         return $this
-            ->getDoctrine()
-            ->getRepository('CelarisSiteBundle:EventBuilding', 'auth')
+            ->getRepository('CelarisGameBundle:EventBuilding')
             ->getEventsNotDone()
         ;
     }

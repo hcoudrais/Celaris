@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class NobeliumStorage
+class CloningCenter
 {
     /**
      * @var BuildingCelaris 
@@ -23,26 +23,30 @@ class NobeliumStorage
 
     public function mineraisCompute()
     {
-        $minerais = 480 * (pow(($this->getLevel() + 1), 2)) + 400;
+        $minerais = 10 * (pow(($this->getLevel() + 1), 4)) + 1000;
 
         $this->buildingCelaris->setMinerais($minerais);
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(0);
+        $cristaux = 7 * (pow(($this->getLevel() + 1), 4)) + 500;
+
+        $this->buildingCelaris->setCristaux($cristaux);
     }
 
     public function nobeliumCompute()
     {
-        $nobelium = 225 * (pow(($this->getLevel() + 1), 2)) + 300;
+        $nobelium = 4 * (pow(($this->getLevel() + 1), 4)) + 300;
 
         $this->buildingCelaris->setNobelium($nobelium);
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(0);
+        $hydrogene = 2 * (pow(($this->getLevel() + 1), 4)) + 300;
+
+        $this->buildingCelaris->setHydrogene($hydrogene);
     }
 
     public function albinionCompute()
@@ -52,14 +56,14 @@ class NobeliumStorage
 
     public function stockageCompute()
     {
-        $stockage = (3000 * pow($this->getLevel(), 2)) - (2000 * $this->getLevel()) + 3000;
+        $stockage =pow(2, $this->getLevel()) + ($this->getLevel() * 100) + 10;
 
         $this->buildingCelaris->setStockage($stockage);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((8000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }

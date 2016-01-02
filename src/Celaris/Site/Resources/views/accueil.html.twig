@@ -19,6 +19,8 @@
                         {% for serverName in serversUse %}
                         <option>{{ serverName }}</option>
                         {% endfor %}
+{#                        Server de tests #}
+                        <option>Game</option>
                     </select>
 
                     <input type="hidden" name="_token" value="{{ csrf_token('server') }}">

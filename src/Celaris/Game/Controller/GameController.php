@@ -170,6 +170,7 @@ class GameController extends GeneralController
         $player->setName($data['name']);
         $em->persist($player);
 
+        // Il faudra créer une nouvelle planète de type planète mère
         $celaris = $this
             ->getRepository('CelarisGameBundle:Celaris')
             ->getOneRandomCelaris($data['galaxy'])
@@ -177,19 +178,20 @@ class GameController extends GeneralController
         $celaris->setPlayer($player);
         $em->persist($celaris);
 
-        $buildings = $this->getRepository('CelarisGameBundle:Building')->findAll();
+//        $buildings = $this->getRepository('CelarisGameBundle:Building')->findAll();
         $researches = $this->getRepository('CelarisGameBundle:Research')->findAll();
 
-        foreach ($buildings as $building) {
-            $buildingCelaris = new BuildingCelaris();
-
-            $buildingCelaris
-                ->setBuilding($building)
-                ->setCelaris($celaris)
-            ;
-
-            $em->persist($buildingCelaris);
-        }
+        // Créer tout les bâtiments de la nouvelle Celaris (à faire)
+//        foreach ($buildings as $building) {
+//            $buildingCelaris = new BuildingCelaris();
+//
+//            $buildingCelaris
+//                ->setBuilding($building)
+//                ->setCelaris($celaris)
+//            ;
+//
+//            $em->persist($buildingCelaris);
+//        }
 
         foreach ($researches as $research) {
             $researchPlayer = new ResearchPlayer();

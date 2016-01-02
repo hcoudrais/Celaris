@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class Albinion
+class NobeliumStorage
 {
     /**
      * @var BuildingCelaris 
@@ -15,7 +15,7 @@ class Albinion
     {
         return $this->buildingCelaris->getLevel();
     }
-
+    
     public function __construct(BuildingCelaris $buildingCelaris)
     {
         $this->buildingCelaris = $buildingCelaris;
@@ -23,22 +23,26 @@ class Albinion
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(500 * ($this->getLevel() + 1));
+        $minerais = 480 * (pow(($this->getLevel() + 1), 2)) + 400;
+
+        $this->buildingCelaris->setMinerais($minerais);
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(450 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(0);
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(300 * ($this->getLevel() + 1));
+        $nobelium = 225 * (pow(($this->getLevel() + 1), 2)) + 300;
+
+        $this->buildingCelaris->setNobelium($nobelium);
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(150 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setHydrogene(0);
     }
 
     public function albinionCompute()
@@ -48,14 +52,14 @@ class Albinion
 
     public function stockageCompute()
     {
-        $stockage = 2 * pow($this->getLevel(), 2);
+        $stockage = (3000 * pow($this->getLevel(), 2)) - (2000 * $this->getLevel()) + 3000;
 
         $this->buildingCelaris->setStockage($stockage);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4000 * ($this->buildingCelaris->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((4000 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -82,7 +86,7 @@ class Albinion
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(false);
+            $this->buildingCelaris->setEnabled(true);
         }
 
         $this->mineraisCompute();

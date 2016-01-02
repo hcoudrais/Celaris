@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class AssemblyFactory
+class TradingPost
 {
     /**
      * @var BuildingCelaris 
@@ -23,22 +23,22 @@ class AssemblyFactory
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(7500 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(7000 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(4000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(2500 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(9000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(4000 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(2500 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setHydrogene(0);
     }
 
     public function albinionCompute()
@@ -53,7 +53,7 @@ class AssemblyFactory
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((4400 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((4000 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -91,7 +91,7 @@ class AssemblyFactory
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-4);
+        $this->buildingCelaris->setEnergy(-5);
         $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class Nobelium
+class GalacticCity
 {
     /**
      * @var BuildingCelaris 
@@ -23,22 +23,22 @@ class Nobelium
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(100 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(900 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(100 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(450 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(520 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(0);
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(150 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setHydrogene(0);
     }
 
     public function albinionCompute()
@@ -48,14 +48,12 @@ class Nobelium
 
     public function stockageCompute()
     {
-        $stockage = ((5.2 * pow($this->getLevel(), 2)) + 25) * ($this->getLevel() + 1);
-
-        $this->buildingCelaris->setStockage($stockage);
+        $this->buildingCelaris->setStockage(0);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((1900 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((1000 * (($this->getLevel() * 5) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -93,7 +91,7 @@ class Nobelium
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-1);
-        $this->buildingCelaris->setSpaceRequired(-1);
+        $this->buildingCelaris->setEnergy(0);
+        $this->buildingCelaris->setSpaceRequired(12);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class DefenseStation
+class OrbitalCenter
 {
     /**
      * @var BuildingCelaris 
@@ -23,17 +23,17 @@ class DefenseStation
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(4000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(4500 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(1000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(1100 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(2000 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(2300 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
@@ -53,7 +53,7 @@ class DefenseStation
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((2500 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((3000 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -91,7 +91,7 @@ class DefenseStation
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-3);
+        $this->buildingCelaris->setEnergy(-4);
         $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

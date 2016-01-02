@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class SolarCenter
+class NuclearCenter
 {
     /**
      * @var BuildingCelaris 
@@ -23,22 +23,22 @@ class SolarCenter
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(450 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(250 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(1100 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(600 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(750 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(400 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(600 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setHydrogene(0);
     }
 
     public function albinionCompute()
@@ -53,7 +53,7 @@ class SolarCenter
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((1700 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((1500 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -80,7 +80,7 @@ class SolarCenter
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(false);
+            $this->buildingCelaris->setEnabled(true);
         }
 
         $this->mineraisCompute();

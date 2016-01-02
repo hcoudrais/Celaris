@@ -1,10 +1,10 @@
 <?php
 
-namespace Celaris\Game\Entity\Building;
+namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
 
-class Minerais
+class AssemblyFactory
 {
     /**
      * @var BuildingCelaris 
@@ -23,22 +23,22 @@ class Minerais
 
     public function mineraisCompute()
     {
-        $this->buildingCelaris->setMinerais(700 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setMinerais(7500 * ($this->getLevel() + 1));
     }
 
     public function cristalCompute()
     {
-        $this->buildingCelaris->setCristaux(350 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setCristaux(4000 * ($this->getLevel() + 1));
     }
 
     public function nobeliumCompute()
     {
-        $this->buildingCelaris->setNobelium(150 * ($this->getLevel() + 1));
+        $this->buildingCelaris->setNobelium(9000 * ($this->getLevel() + 1));
     }
 
     public function hydrogeneCompute()
     {
-        $this->buildingCelaris->setHydrogene(0);
+        $this->buildingCelaris->setHydrogene(2500 * ($this->getLevel() + 1));
     }
 
     public function albinionCompute()
@@ -48,14 +48,12 @@ class Minerais
 
     public function stockageCompute()
     {
-        $stockage = ((7 * pow($this->getLevel(), 2)) + 50) * ($this->getLevel() + 1);
-
-        $this->buildingCelaris->setStockage($stockage);
+        $this->buildingCelaris->setStockage(0);
     }
 
     public function constructTimeCompute($ccLvl)
     {
-        $time = round((1800 * ($this->getLevel() + 1) / 2) / ((1 + log($ccLvl + 1))));
+        $time = round((4400 * (($this->getLevel() * 2) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
     }
@@ -82,7 +80,7 @@ class Minerais
         if (!$init) {
             $this->buildingCelaris->setLevel($this->getLevel() + 1);
         } else {
-            $this->buildingCelaris->setEnabled(true);
+            $this->buildingCelaris->setEnabled(false);
         }
 
         $this->mineraisCompute();
@@ -93,7 +91,7 @@ class Minerais
         $this->stockageCompute();
         $this->constructTimeCompute($ccLvl);
         $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-1);
+        $this->buildingCelaris->setEnergy(-4);
         $this->buildingCelaris->setSpaceRequired(-1);
     }
 }
