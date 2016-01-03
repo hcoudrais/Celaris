@@ -61,6 +61,16 @@ class ResearchPlayer
      */
     protected $researchTime;
 
+    /**
+     * @ORM\Column(name="Enabled", type="boolean")
+     */
+    protected $enabled;
+
+    /**
+     * @ORM\Column(name="ResearchPoint", type="integer")
+     */
+    protected $researchPoint;
+
     public function __construct()
     {
         $this->level = 0;
@@ -122,6 +132,16 @@ class ResearchPlayer
         $this->research = $research;
 
         return $this;
+    }
+
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    public function getResearchPoint()
+    {
+        return $this->researchPoint;
     }
 
     public function setPlayer($player)
@@ -187,5 +207,19 @@ class ResearchPlayer
                 $this->getNobelium()  + 
                 $this->getHydrogene()
         ;
+    }
+
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function setResearchPoint($researchPoint)
+    {
+        $this->researchPoint = $researchPoint;
+
+        return $this;
     }
 }

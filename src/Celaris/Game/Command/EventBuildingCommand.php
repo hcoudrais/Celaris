@@ -22,29 +22,11 @@ class EventBuildingCommand extends EventCommand
         ;
     }
 
-    private function checkPrerequisite($celaris, $player)
+    private function prerequisiteBuilding($celaris, $buildingsLvl, $researchesLvl)
     {
-        $buildingsCelaris = $this->getRepository('CelarisGameBundle:BuildingCelaris')->findBy(array(
-            'celaris' => $celaris
-        ));
-
-        $researchesPlayer = $this->getRepository('CelarisGameBundle:ResearchPlayer')->findBy(array(
-            'player' => $player
-        ));
-
-        // Get level for all building
-        foreach ($buildingsCelaris as $buildingCelaris)
-            $buildingsLvl[$buildingCelaris->getBuilding()->getBuildingId()] = $buildingCelaris->getLevel();
-
-        // Get level for all research
-        foreach ($researchesPlayer as $researchPlayer)
-            $researchesLvl[$researchPlayer->getResearch()->getResearchId()] = $researchPlayer->getLevel();
-
-        $buildings = $this->getRepository('CelarisGameBundle:Building')->findAll();
-
         $em = $this->getManager();
 
-        // Check prerequisite to enabled building
+        $buildings = $this->getRepository('CelarisGameBundle:Building')->findAll();
         foreach ($buildings as $building) {
             // Récupère le BuildingCelaris
             $buildingsCelarisToSet = $this->getRepository('CelarisGameBundle:BuildingCelaris')->findOneBy(array(
@@ -83,7 +65,76 @@ class EventBuildingCommand extends EventCommand
             }
         }
     }
-    
+
+    private function prerequisiteResearch($player, $buildingsLvl, $researchesLvl)
+    {
+        $em = $this->getManager();
+
+        $researches = $this->getRepository('CelarisGameBundle:Research')->findAll();
+        foreach ($researches as $research) {
+            // Récupère le ResearchPlayer
+            $researchesPlayer = $this->getRepository('CelarisGameBundle:ResearchPlayer')->findOneBy(array(
+                'player' => $player,
+                'research' => $research
+            ));
+
+            // Si le ResearchPlayer est déjà actif je passe au prochain
+            if ($researchesPlayer->getEnabled())
+                continue;
+
+            $preRequisites = $research->getPrerequisite(); // Array
+
+            // Si il n'y pas de pré requis c'est que normalement je ne doit pas arriver là :)
+            if (is_null($preRequisites)) {
+                $researchesPlayer->setEnabled(true);
+                continue;
+            }
+
+            // J'init à true, si jamais un pré requis ne correspond pas, je set à false
+            $isEnabled = true;
+            if (isset($preRequisites['building']))
+                foreach ($preRequisites['building'] as $buildingName => $buildingLvl)
+                    if ($buildingsLvl[Building::$findBuildingIdByName[$buildingName]] < $buildingLvl)
+                        $isEnabled = false;
+
+            if (isset($preRequisites['research']))
+                foreach ($preRequisites['research'] as $researchName => $researchLvl)
+                    if ($researchesLvl[Research::$findResearchIdByName[$researchName]] < $researchLvl)
+                        $isEnabled = false;
+
+            if ($isEnabled) {
+                $researchesPlayer->setEnabled(true);
+
+                $em->persist($researchesPlayer);
+            }
+        }
+    }
+
+    private function checkPrerequisite($celaris, $player)
+    {
+        $buildingsCelaris = $this->getRepository('CelarisGameBundle:BuildingCelaris')->findBy(array(
+            'celaris' => $celaris
+        ));
+
+        $researchesPlayer = $this->getRepository('CelarisGameBundle:ResearchPlayer')->findBy(array(
+            'player' => $player
+        ));
+
+        // Get level for all building
+        foreach ($buildingsCelaris as $buildingCelaris)
+            $buildingsLvl[$buildingCelaris->getBuilding()->getBuildingId()] = $buildingCelaris->getLevel();
+
+        // Get level for all research
+        foreach ($researchesPlayer as $researchPlayer)
+            $researchesLvl[$researchPlayer->getResearch()->getResearchId()] = $researchPlayer->getLevel();
+
+        // Check prerequisite to enabled building
+        $this->prerequisiteBuilding($celaris, $buildingsLvl, $researchesLvl);
+
+        // Check prerequisite to enabled building
+        $this->prerequisiteResearch($player, $buildingsLvl, $researchesLvl); 
+    }
+
     protected function start(InputInterface $input, OutputInterface $output)
     {
         $events = $this->getEventBuilding();
@@ -92,6 +143,7 @@ class EventBuildingCommand extends EventCommand
 
         foreach ($events as $event) {
             // Je recharge les entités avec doctrine pour pouvoir accéder à tous les champs au moment du flush
+            // Pourquoi ??????
             $celaris = $this->getRepository('CelarisGameBundle:Celaris')->find($event->getCelaris()->getCelarisId());
             $buildingToLevelUp = $this->getRepository('CelarisGameBundle:Building')->find($event->getBuilding()->getBuildingId());
             $event = $this->getRepository('CelarisGameBundle:EventBuilding')->find($event->getId());
