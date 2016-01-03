@@ -3,22 +3,17 @@
 namespace Celaris\Game\Entity\BuildingSpecific;
 
 use Celaris\Game\Entity\BuildingCelaris;
+use Celaris\Game\Entity\Celaris;
 
-class Bank
+class Bank extends AbstractBuilding
 {
-    /**
-     * @var BuildingCelaris 
-     */
-    private $buildingCelaris;
+    public function __construct(BuildingCelaris $buildingCelaris, Celaris $celaris)
+    {
+        parent::__construct($buildingCelaris, $celaris);
 
-    private function getLevel()
-    {
-        return $this->buildingCelaris->getLevel();
-    }
-    
-    public function __construct(BuildingCelaris $buildingCelaris)
-    {
-        $this->buildingCelaris = $buildingCelaris;
+        $this->isEnabled = false;
+        $this->energy = -5;
+        $this->spaceAvailable = -1;
     }
 
     public function mineraisCompute()
@@ -68,42 +63,5 @@ class Bank
         $time = round((4400 * ((pow($this->getLevel(), 2)) + 1) / 2) / ((1 + log($ccLvl + 1))));
 
         $this->buildingCelaris->setConstructTime($time);
-    }
-
-    public function workPointCompute()
-    {
-        $point = 0;
-
-        if ($this->getLevel() > 0)
-            $point = (round(($this->buildingCelaris->getSumRessources()) / 500) * $this->getLevel()) - $this->buildingCelaris->getWorkPoint();
-
-        $this->buildingCelaris->setWorkPoint($point);
-    }
-
-    /**
-     * $ccLvl représente le centre de commandement dont on a besoin
-     * pour calculer le temps de construction des bâtiments
-     * 
-     * @param int $ccLvl
-     * @param boolean $init
-     */
-    public function levelUp($ccLvl = 0, $init = false)
-    {
-        if (!$init) {
-            $this->buildingCelaris->setLevel($this->getLevel() + 1);
-        } else {
-            $this->buildingCelaris->setEnabled(false);
-        }
-
-        $this->mineraisCompute();
-        $this->cristalCompute();
-        $this->nobeliumCompute();
-        $this->hydrogeneCompute();
-        $this->albinionCompute();
-        $this->stockageCompute();
-        $this->constructTimeCompute($ccLvl);
-        $this->workPointCompute();
-        $this->buildingCelaris->setEnergy(-5);
-        $this->buildingCelaris->setSpaceRequired(-1);
     }
 }

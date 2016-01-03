@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Research
 {
-    const PATH_TO_BUILDING_CLASS = 'Celaris\Game\Entity\ResearchSpecific\\';
+    const PATH_TO_RESEARCH_CLASS = 'Celaris\Game\Entity\ResearchSpecific\\';
 
     const SPY_ID = 1;
     const SIGNALMODULATION_ID = 2;
@@ -92,6 +92,11 @@ class Research
      */
     protected $prerequisite;
 
+    public function getResearchId()
+    {
+        return $this->researchId;
+    }
+
     public function getName()
     {
         return $this->name;
@@ -107,6 +112,6 @@ class Research
 
     public function getSpecificClass()
     {
-        return self::PATH_TO_BUILDING_CLASS . $this->specificName;
+        return self::PATH_TO_RESEARCH_CLASS . $this->specificName;
     }
 }

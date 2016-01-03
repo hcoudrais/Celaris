@@ -268,13 +268,12 @@ class BuildingCelaris
         return $this;
     }
 
-    public function getSumRessources()
+    public function getSumRessourcesWithoutAlbinion()
     {
         return  $this->getMinerais()  + 
                 $this->getCristaux()  + 
                 $this->getNobelium()  + 
-                $this->getHydrogene() +
-                $this->getAlbinion()
+                $this->getHydrogene()
         ;
     }
 }

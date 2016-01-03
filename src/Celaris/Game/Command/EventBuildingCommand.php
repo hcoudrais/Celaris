@@ -2,14 +2,12 @@
 
 namespace Celaris\Game\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Celaris\Game\Entity\Building;
 use Celaris\Game\Entity\Research;
-use Celaris\Game\Entity\BuildingSpecific;
 
 use DateTime;
 
@@ -93,9 +91,11 @@ class EventBuildingCommand extends EventCommand
         $em = $this->getManager();
 
         foreach ($events as $event) {
-            // INIT VARIABLE
-            $celaris = $event->getCelaris();
-            $buildingToLevelUp = $event->getBuilding();
+            // Je recharge les entités avec doctrine pour pouvoir accéder à tous les champs au moment du flush
+            $celaris = $this->getRepository('CelarisGameBundle:Celaris')->find($event->getCelaris()->getCelarisId());
+            $buildingToLevelUp = $this->getRepository('CelarisGameBundle:Building')->find($event->getBuilding()->getBuildingId());
+            $event = $this->getRepository('CelarisGameBundle:EventBuilding')->find($event->getId());
+            $player = $this->getRepository('CelarisGameBundle:Players')->find($event->getPlayer()->getPlayerId());
 
             $buildingCelarisToLevelUp = $this->getRepository('CelarisGameBundle:BuildingCelaris')->findOneBy(array(
                 'celaris' => $celaris,
@@ -133,24 +133,21 @@ class EventBuildingCommand extends EventCommand
             $currentBuildingToLevelUp = $buildingToLevelUp->getSpecificClass();
 
             // Instancie la classe spéciale pour modifier le BuildingCelaris
-            $currentBuildingSpecific = new $currentBuildingToLevelUp($buildingCelarisToLevelUp);
+            $currentBuildingSpecific = new $currentBuildingToLevelUp($buildingCelarisToLevelUp, $celaris);
             // Level up !
             $currentBuildingSpecific->levelUp($ccBuildingCelaris->getLevel());
 
             $em->persist($buildingCelarisToLevelUp);
+            $em->persist($celaris);
             $em->flush();
 
-            // Je recharge le player avec doctrine pour pouvoir accéder à toutes les entités au moment du flush
-            $player = $this->getRepository('CelarisGameBundle:Players')->find($event->getPlayer()->getPlayerId());
             // Check prerequisite
             $this->checkPrerequisite($celaris, $player);
-            
+
             // Ajouter les points au classement général (table Player, workPoint)
             $player->setWorkPoint($buildingCelarisToLevelUp->getWorkPoint());
             $em->persist($player);
 
-            // Je recharge l'event avec doctrine pour pouvoir accéder à toutes les entités au moment du flush
-            $event = $this->getRepository('CelarisGameBundle:EventBuilding')->find($event->getId());
             $event->setDoneAt(new DateTime('now'));
             $em->persist($event);
         }

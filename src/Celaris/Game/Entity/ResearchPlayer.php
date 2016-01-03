@@ -180,7 +180,7 @@ class ResearchPlayer
         return $this;
     }
 
-    public function getSumRessourcesWithoutALbinion()
+    public function getSumRessourcesWithoutAlbinion()
     {
         return  $this->getMinerais()  + 
                 $this->getCristaux()  + 

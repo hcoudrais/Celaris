@@ -50,7 +50,7 @@ abstract class AbstractResearch
 
         if ($this->getLevel() > 0) {
             $point = (
-                round(($this->researchPlayer->getSumRessourcesWithoutALbinion() + (7 * $this->researchPlayer->getAlbinion())) / 500)
+                round(($this->researchPlayer->getSumRessourcesWithoutAlbinion() + (7 * $this->researchPlayer->getAlbinion())) / 500)
             ) - $this->researchPlayer->getWorkPoint();
         }
 
