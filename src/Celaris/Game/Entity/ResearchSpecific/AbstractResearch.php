@@ -1,6 +1,6 @@
 <?php
 
-namespace Celaris\Game\Entity\BuildingSpecific;
+namespace Celaris\Game\Entity\ResearchSpecific;
 
 use Celaris\Game\Entity\ResearchPlayer;
 
@@ -51,10 +51,10 @@ abstract class AbstractResearch
         if ($this->getLevel() > 0) {
             $point = (
                 round(($this->researchPlayer->getSumRessourcesWithoutAlbinion() + (7 * $this->researchPlayer->getAlbinion())) / 500)
-            ) - $this->researchPlayer->getWorkPoint();
+            ) - $this->researchPlayer->getResearchPoint();
         }
 
-        $this->researchPlayer->setWorkPoint($point);
+        $this->researchPlayer->setResearchPoint($point);
     }
 
     /**

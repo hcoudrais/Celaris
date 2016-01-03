@@ -1,6 +1,6 @@
 <?php
 
-namespace Celaris\Game\Entity\BuildingSpecific;
+namespace Celaris\Game\Entity\ResearchSpecific;
 
 class FuselageShip extends AbstractResearch
 {

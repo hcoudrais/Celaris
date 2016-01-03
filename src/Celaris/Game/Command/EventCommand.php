@@ -33,6 +33,14 @@ abstract class EventCommand extends ContainerAwareCommand
         ;
     }
 
+    protected function getEventResearch()
+    {
+        return $this
+            ->getRepository('CelarisGameBundle:EventResearch')
+            ->getEventsNotDone()
+        ;
+    }
+
     final protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {

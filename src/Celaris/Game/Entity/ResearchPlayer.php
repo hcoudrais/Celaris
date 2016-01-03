@@ -127,13 +127,6 @@ class ResearchPlayer
         return $this->researchTime;
     }
 
-    public function setResearch($research)
-    {
-        $this->research = $research;
-
-        return $this;
-    }
-
     public function getEnabled()
     {
         return $this->enabled;
@@ -142,6 +135,13 @@ class ResearchPlayer
     public function getResearchPoint()
     {
         return $this->researchPoint;
+    }
+
+    public function setResearch($research)
+    {
+        $this->research = $research;
+
+        return $this;
     }
 
     public function setPlayer($player)
