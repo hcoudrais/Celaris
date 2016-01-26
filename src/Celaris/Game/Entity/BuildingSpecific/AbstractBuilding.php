@@ -53,22 +53,20 @@ abstract class AbstractBuilding
      */
     public function energyCompute()
     {
-        if ($this->buildingCelaris->getEnergy() <= 0)
-            return;
+        if ($this->buildingCelaris->getEnergy() > 0) {
+            $energy = $this->celaris->getEnergy() + $this->buildingCelaris->getEnergy();
 
-        $energy = $this->celaris->getEnergy() + $this->buildingCelaris->getEnergy();
-
-        $this->celaris->setEnergy($energy);
+            $this->celaris->setEnergy($energy);
+        }
     }
 
     public function spaceAvailableCompute()
     {
-        if ($this->buildingCelaris->getSpaceRequired() <= 0)
-            return;
+        if ($this->buildingCelaris->getSpaceRequired() > 0) {
+            $spaceAvailable = $this->celaris->getSpaceAvailable() + $this->buildingCelaris->getSpaceRequired();
 
-        $spaceAvailable = $this->celaris->getSpaceAvailable() + $this->buildingCelaris->getSpaceRequired();
-
-        $this->celaris->setSpaceAvailable($spaceAvailable);
+            $this->celaris->setSpaceAvailable($spaceAvailable);
+        }
     }
 
     protected function workPointCompute()

@@ -88,9 +88,14 @@ class Research
     protected $specificName;
 
     /**
-     * @ORM\Column(name="Prerequisite", type="string", length=500)
+     * @ORM\Column(name="Prerequisite", type="string", length=1000)
      */
     protected $prerequisite;
+
+    /**
+     * @ORM\Column(name="TriggerEvent", type="string", length=8000)
+     */
+    protected $triggerEvent;
 
     public function getResearchId()
     {
@@ -102,6 +107,19 @@ class Research
         return $this->name;
     }
 
+    public function getSpecificName()
+    {
+        return $this->specificName;
+    }
+
+    public function getTriggerEvent($raw = false)
+    {
+        if ($raw)
+            return $this->triggerEvent;
+
+        return json_decode($this->triggerEvent, true);
+    }
+
     public function getPrerequisite($raw = false)
     {
         if ($raw)
@@ -110,8 +128,10 @@ class Research
         return json_decode($this->prerequisite, true);
     }
 
-    public function getSpecificClass()
+    public function getSpecificClass(ResearchPlayer $researchCelaris)
     {
-        return self::PATH_TO_RESEARCH_CLASS . $this->specificName;
+        $specificPath = self::PATH_TO_RESEARCH_CLASS . $this->specificName;
+
+        return new $specificPath($researchCelaris);
     }
 }

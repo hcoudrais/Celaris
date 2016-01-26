@@ -84,9 +84,14 @@ class Building
     protected $specificName;
 
     /**
-     * @ORM\Column(name="Prerequisite", type="string", length=500)
+     * @ORM\Column(name="Prerequisite", type="string", length=1000)
      */
     protected $prerequisite;
+
+    /**
+     * @ORM\Column(name="TriggerEvent", type="string", length=8000)
+     */
+    protected $triggerEvent;
 
     public function getBuildingId()
     {
@@ -98,6 +103,11 @@ class Building
         return $this->name;
     }
 
+    public function getSpecificName()
+    {
+        return $this->specificName;
+    }
+
     public function getPrerequisite($raw = false)
     {
         if ($raw)
@@ -106,8 +116,18 @@ class Building
         return json_decode($this->prerequisite, true);
     }
 
-    public function getSpecificClass()
+    public function getTriggerEvent($raw = false)
     {
-        return self::PATH_TO_BUILDING_CLASS . $this->specificName;
+        if ($raw)
+            return $this->triggerEvent;
+
+        return json_decode($this->triggerEvent, true);
+    }
+
+    public function getSpecificClass(BuildingCelaris $buildingCelaris, Celaris $celaris)
+    {
+        $specificPath = self::PATH_TO_BUILDING_CLASS . $this->specificName;
+
+        return new $specificPath($buildingCelaris, $celaris);
     }
 }
