@@ -130,4 +130,11 @@ class Building
 
         return new $specificPath($buildingCelaris, $celaris);
     }
+
+    public static function getSpecificNameById($buildingId)
+    {
+        $buildings = array_flip(Building::$findBuildingIdByName);
+        
+        return $buildings[$buildingId];
+    }
 }

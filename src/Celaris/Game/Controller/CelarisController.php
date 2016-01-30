@@ -4,10 +4,10 @@ namespace Celaris\Game\Controller;
 
 use Celaris\Game\Controller\GeneralController;
 
+use Celaris\Game\Entity\Building;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Celaris\Game\Views\PlayerView;
 
 class CelarisController extends GeneralController
 {
@@ -20,15 +20,26 @@ class CelarisController extends GeneralController
         if (!$this->getUser())
             return $this->redirect($this->generateUrl('logout'));
 
-        $player = $this
-            ->getRepository('CelarisGameBundle:Players')
-            ->findOneBy(array('userId' => $this->getUser()->getId()))
+        $player = $this->getPlayer();
+
+        $celaris = $this
+            ->getRepository('CelarisGameBundle:Celaris')
+            ->findFirstCelaris($player['playerId'])
         ;
 
-        $playerView = new PlayerView;
+        $buildingsCelaris = $this
+            ->getRepository('CelarisGameBundle:BuildingCelaris')
+            ->findBuildingRessources($celaris['celarisId'])
+        ;
+
+        $ressourceBuildings = array();
+        foreach ($buildingsCelaris as $buildingCelaris)
+            $ressourceBuildings[Building::getSpecificNameById($buildingCelaris['buildingId'])] = $buildingCelaris;
 
         return array(
-            'player' => $playerView->getPlayerInfoView($player)
+            'player' => $player,
+            'celaris' => $celaris,
+            'buildingCelaris' => $ressourceBuildings
         );
     }
 }

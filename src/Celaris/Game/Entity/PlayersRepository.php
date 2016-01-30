@@ -17,5 +17,5 @@ class PlayersRepository extends EntityRepository
         ;
 
         return count($player) > 0 ? $player[0] : null;
-    }   
+    }
 }

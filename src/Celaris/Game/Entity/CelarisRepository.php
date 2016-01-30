@@ -58,4 +58,19 @@ class CelarisRepository extends EntityRepository
             ->getResult()
         ; 
     }
+
+    public function findFirstCelaris($playerId)
+    {
+        $celaris = $this
+            ->createQueryBuilder('c')
+            ->where('c.player = :playerId')
+            ->andWhere('c.typeCelaris = 7') // 15
+            ->setParameter(':playerId', $playerId)
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return count($celaris) > 0 ? $celaris[0] : null;
+    }
+            
 }

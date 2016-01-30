@@ -11,6 +11,8 @@ class PlayerView
 {
     public function getPlayerInfoView(Players $player)
     {
+        $playerInfo = array();
+
         if ($player) {
             $playerInfo = array (
                 'playerId' => $player->getPlayerId(),

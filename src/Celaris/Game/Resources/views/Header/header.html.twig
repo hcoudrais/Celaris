@@ -1,18 +1,49 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <br/>
-    <div class='container-fluid'>
-        <div class='row-fluid'>
-            Hello !
+<br/>
+<div class='container-fluid'>
+    <div class='row-fluid'>
+        Hello !
 
-            <div class='pull-right'>
-                <form role="form" action="{{ path('fos_user_security_logout') }}" method="get">
-                    <button class='btn-warning' type="submit">Déconnection</button>
-                </form>
-            </div>
+        <span id="ressource-minerais" class="ressources" data-production="{{ buildingCelaris.Minerais.minerais }}" 
+            data-current-ressources="{{ celaris.minerais|default(0) }}">{{ celaris.minerais|default(0) }}</span>
+        <span id="ressource-cristaux" class="ressources" data-production="{{ buildingCelaris.Cristal.cristaux }}" 
+            data-current-ressources="{{ celaris.cristaux|default(0) }}">{{ celaris.cristaux|default(0) }}</span>
+        <span id="ressource-nobelium" class="ressources" data-production="{{ buildingCelaris.Nobelium.nobelium }}" 
+            data-current-ressources="{{ celaris.nobelium|default(0) }}">{{ celaris.nobelium|default(0) }}</span>
+        <span id="ressource-hydrogene" class="ressources" data-production="{{ buildingCelaris.Hydrogene.hydrogene }}" 
+            data-current-ressources="{{ celaris.hydrogene|default(0) }}">{{ celaris.hydrogene|default(0) }}</span>
+        <span id="ressource-albinion" class="ressources" data-production="{{ buildingCelaris.Albinion.albinion }}" 
+            data-current-ressources="{{ celaris.albinion|default(0) }}">{{ celaris.albinion|default(0) }}</span>
+
+        <div class='pull-right'>
+            <form role="form" action="{{ path('fos_user_security_logout') }}" method="get">
+                <button class='btn-warning' type="submit">Déconnection</button>
+            </form>
         </div>
-
-        {% include 'CelarisGameBundle:Header:menu-header.html.twig' %}
     </div>
+
+    {% include 'CelarisGameBundle:Header:menu-header.html.twig' %}
+</div>
+
+<script>
+    $(document).ready(function() {
+        var ressources = $('.ressources');
+
+        ressources.each(function() {
+            setInterval(computeRessources, 1000, $(this));
+        }, ressources);
+
+        function computeRessources(spanRessource) {
+            var production = parseFloat(spanRessource.data('production'));
+            var currentRessource = parseFloat(spanRessource.data('currentRessources'));
+            
+            var computeRessource = currentRessource + production;
+            spanRessource.data('currentRessources', computeRessource);
+            spanRessource.html(parseInt(currentRessource + production));
+        }
+    });
+</script>    
+
 {% endblock content %}

@@ -31,6 +31,14 @@ class GeneralController extends Controller
         return $errors;
     }
 
+    protected function getPlayer()
+    {
+        return $this
+            ->getRepository('CelarisGameBundle:Players')
+            ->getPlayerByUserId($this->getUser()->getId())
+        ;
+    }        
+    
     protected function getAllRaces()
     {
         return $this
