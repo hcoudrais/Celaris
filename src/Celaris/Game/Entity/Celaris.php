@@ -73,6 +73,11 @@ class Celaris
      * @ORM\Column(name="Albinion", type="integer")
      */
     protected $albinion;
+
+    /**
+     * @ORM\Column(name="LastUpdate", type="datetime")
+     */
+    protected $lastUpdate;
     
     public function getCelarisId() {
         return $this->celarisId;
@@ -125,6 +130,11 @@ class Celaris
     public function getAlbinion()
     {
         return $this->albinion;
+    }
+
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 
     public function setCelarisId($celarisId) {
@@ -202,6 +212,13 @@ class Celaris
     public function setAlbinion($albinion)
     {
         $this->albinion = $albinion;
+
+        return $this;
+    }
+
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
 
         return $this;
     }

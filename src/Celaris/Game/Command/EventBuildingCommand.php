@@ -148,6 +148,14 @@ class EventBuildingCommand extends EventCommand
             $event = $this->getRepository('CelarisGameBundle:EventBuilding')->find($event->getId());
             $player = $this->getRepository('CelarisGameBundle:Players')->find($event->getPlayer()->getPlayerId());
 
+            // Calcule les ressources d'une planète lorqu'on level up
+            // un bâtiment minier (production et stockage)
+            // Le calcul se fait AVANT le level up.
+            if (Building::isRessourcesBuilding($buildingToLevelUp->getBuildingId())) {
+                $computeRessources = $this->getContainer()->get('computecelarisressources');
+                $computeRessources->computeCelarisRessources($this->serverName, $celaris);
+            }
+
             $buildingCelarisToLevelUp = $this->getRepository('CelarisGameBundle:BuildingCelaris')->findOneBy(array(
                 'celaris' => $celaris,
                 'building' => $buildingToLevelUp

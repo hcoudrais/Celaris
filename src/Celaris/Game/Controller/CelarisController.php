@@ -18,7 +18,7 @@ class CelarisController extends GeneralController
     public function celarisAction()
     {
         if (!$this->getUser())
-            return $this->redirect($this->generateUrl('logout'));
+            return $this->redirect($this->generateUrl('fos_user_security_logout'));
 
         $player = $this->getPlayer();
 

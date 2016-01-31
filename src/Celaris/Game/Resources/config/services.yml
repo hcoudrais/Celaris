@@ -1,0 +1,5 @@
+services:
+    computecelarisressources:
+        class:     Celaris\Game\Services\ComputeCelarisRessources
+        calls:
+            - [ setContainer, [ @service_container ] ]

@@ -137,4 +137,20 @@ class Building
         
         return $buildings[$buildingId];
     }
+
+    public static function isRessourcesBuilding($buildingId)
+    {
+        return in_array($buildingId, array(
+            self::MINERAIS_ID,
+            self::CRISTAL_ID,
+            self::NOBELIUM_ID,
+            self::HYDROGENE_ID,
+            self::ALBINION_ID,
+            self::MINERAIS_STORAGE_ID,
+            self::CRISTAL_STORAGE_ID,
+            self::NOBELIUM_STORAGE_ID,
+            self::HYDROGENE_STORAGE_ID,
+            self::ALBINION_STORAGE_ID
+        ));
+    }
 }
