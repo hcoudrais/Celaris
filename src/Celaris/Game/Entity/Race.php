@@ -23,6 +23,31 @@ class Race
     protected $name;
 
     /**
+     * @ORM\Column(name="ShipConstruct", type="integer")
+     */
+    protected $shipConstruct;
+
+    /**
+     * @ORM\Column(name="ShipTimeConstruct", type="integer")
+     */
+    protected $shipTimeConstruct;
+
+    /**
+     * @ORM\Column(name="DefenseConstruct", type="integer")
+     */
+    protected $defenseConstruct;
+
+    /**
+     * @ORM\Column(name="DefenseTimeConstruct", type="integer")
+     */
+    protected $defenseTimeConstruct;
+
+    /**
+     * @ORM\Column(name="BonusRessource", type="integer")
+     */
+    protected $bonusRessource;
+
+    /**
      * Get raceId
      *
      * @return integer
@@ -51,5 +76,45 @@ class Race
     public function getName()
     {
         return $this->name;
+    }
+
+    function getShipConstruct() {
+        return $this->shipConstruct;
+    }
+
+    function getShipTimeConstruct() {
+        return $this->shipTimeConstruct;
+    }
+
+    function getDefenseConstruct() {
+        return $this->defenseConstruct;
+    }
+
+    function getDefenseTimeConstruct() {
+        return $this->defenseTimeConstruct;
+    }
+
+    function getBonusRessource() {
+        return $this->bonusRessource;
+    }
+
+    function setShipConstruct($shipConstruct) {
+        $this->shipConstruct = $shipConstruct;
+    }
+
+    function setShipTimeConstruct($shipTimeConstruct) {
+        $this->shipTimeConstruct = $shipTimeConstruct;
+    }
+
+    function setDefenseConstruct($defenseConstruct) {
+        $this->defenseConstruct = $defenseConstruct;
+    }
+
+    function setDefenseTimeConstruct($defenseTimeConstruct) {
+        $this->defenseTimeConstruct = $defenseTimeConstruct;
+    }
+
+    function setBonusRessource($bonusRessource) {
+        $this->bonusRessource = $bonusRessource;
     }
 }
